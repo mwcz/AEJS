@@ -137,52 +137,58 @@ var BYTE_LENGTH = 1; // bytes
  *     A2  Double-Operand Address Modes in 11-0
  *     D   Data or Offset in 7-0
  */
-var MAJOR_OPCODES = {
-    0000 : "Bit Manipulation, MOVEP, Immediate operations",                                 // A1  Bit Manipulation, MOVEP, Immediate operations
-    0001 : "Move Byte",                                                                     // A2  Move Byte
-    0010 : "Move Long",                                                                     // A2  Move Long
-    0011 : "Move Word (Move Short)",                                                        // A2  Move Word (Move Short)
-    0100 : "Miscellaneous",                                                                 // A1  Miscellaneous
-    0101 : "ADDQ/SUBQ/Scc/DBcc/TRAPc c (Add/Sub Quick & CC)",                               // A1  ADDQ/SUBQ/Scc/DBcc/TRAPc c (Add/Sub Quick & CC)
-    0110 : "Bcc/BSR/BRA (Branch operations)",                                               // D   Bcc/BSR/BRA (Branch operations)
-    0111 : "MOVEQ (Move Quick)",                                                            // D   MOVEQ (Move Quick)
-    1000 : "OR/DIV/SBCD (Or & Divide)",                                                     // A1  OR/DIV/SBCD (Or & Divide)
-    1001 : "SUB/SUBX (Subtract)",                                                           // A1  SUB/SUBX (Subtract)
-    1010 : "Unassigned/Reserved (Illegal (A-Traps))",                                       // -   Unassigned/Reserved (Illegal (A-Traps))
-    1011 : "CMP/EOR (Compare & Xor)",                                                       // A1  CMP/EOR (Compare & Xor)
-    1100 : "AND/MUL/ABCD/EXG (And & Multiply)",                                             // A1  AND/MUL/ABCD/EXG (And & Multiply)
-    1101 : "ADD/ADDX (Add)",                                                                // A1  ADD/ADDX (Add)
-    1110 : "Shift/Rotate/Bit Field (Shift & Rotate)",                                       // A1  Shift/Rotate/Bit Field (Shift & Rotate)
-    1111 : "Coprocessor Interface/MC68040 and CPU32 Extensions (Illegal (Floating-point))", // -   Coprocessor Interface/MC68040 and CPU32 Extensions (Illegal (Floating-point))
-}
+var MAJOR_OPCODES = [
+    /* 0000 */ "[A1] Bit Manipulation, MOVEP, Immediate operations",                                 // A1  Bit Manipulation, MOVEP, Immediate operations
+    /* 0001 */ "[A2] Move Byte",                                                                     // A2  Move Byte
+    /* 0010 */ "[A2] Move Long",                                                                     // A2  Move Long
+    /* 0011 */ "[A2] Move Word (Move Short)",                                                        // A2  Move Word (Move Short)
+    /* 0100 */ "[A1] Miscellaneous",                                                                 // A1  Miscellaneous
+    /* 0101 */ "[A1] ADDQ/SUBQ/Scc/DBcc/TRAPc c (Add/Sub Quick & CC)",                               // A1  ADDQ/SUBQ/Scc/DBcc/TRAPc c (Add/Sub Quick & CC)
+    /* 0110 */ "[D]  Bcc/BSR/BRA (Branch operations)",                                               // D   Bcc/BSR/BRA (Branch operations)
+    /* 0111 */ "[D]  MOVEQ (Move Quick)",                                                            // D   MOVEQ (Move Quick)
+    /* 1000 */ "[A1] OR/DIV/SBCD (Or & Divide)",                                                     // A1  OR/DIV/SBCD (Or & Divide)
+    /* 1001 */ "[A1] SUB/SUBX (Subtract)",                                                           // A1  SUB/SUBX (Subtract)
+    /* 1010 */ "[-]  Unassigned/Reserved (Illegal (A-Traps))",                                       // -   Unassigned/Reserved (Illegal (A-Traps))
+    /* 1011 */ "[A1] CMP/EOR (Compare & Xor)",                                                       // A1  CMP/EOR (Compare & Xor)
+    /* 1100 */ "[A1] AND/MUL/ABCD/EXG (And & Multiply)",                                             // A1  AND/MUL/ABCD/EXG (And & Multiply)
+    /* 1101 */ "[A1] ADD/ADDX (Add)",                                                                // A1  ADD/ADDX (Add)
+    /* 1110 */ "[A1] Shift/Rotate/Bit Field (Shift & Rotate)",                                       // A1  Shift/Rotate/Bit Field (Shift & Rotate)
+    /* 1111 */ "[-]  Coprocessor Interface/MC68040 and CPU32 Extensions (Illegal (Floating-point))", // -   Coprocessor Interface/MC68040 and CPU32 Extensions (Illegal (Floating-point))
+]
 
 function decode_A1( _word ) {
-    // TODO : return here
+    return _word & MASK6B; // single operand address mode in 5-0
 }
 function decode_A2( _word ) {
+    return _word & MASK12B; // double operand address mode in 11-0
 }
 function decode_D( _word ) {
+    return _word & MASK8B; // data or offset in 7-0
 }
 function decode_undefined( _word ) {
 }
 
+/**
+ * DECODE_ADDRESSING_MODE is a map from the first four bits of an opcode (the "major opcode")
+ * to the function that decodes the addressing mode of that opcode.
+ */
 var DECODE_ADDRESSING_MODE = [
-    decode_A1,        // 0000
-    decode_A2,        // 0001
-    decode_A2,        // 0010
-    decode_A2,        // 0011
-    decode_A1,        // 0100
-    decode_A1,        // 0101
-    decode_D,         // 0110
-    decode_D,         // 0111
-    decode_A1,        // 1000
-    decode_A1,        // 1001
-    decode_undefined, // 1010
-    decode_A1,        // 1011
-    decode_A1,        // 1100
-    decode_A1,        // 1101
-    decode_A1,        // 1110
-    decode_undefined  // 1111
+    /* 0000 */ decode_A1,
+    /* 0001 */ decode_A2,
+    /* 0010 */ decode_A2,
+    /* 0011 */ decode_A2,
+    /* 0100 */ decode_A1,
+    /* 0101 */ decode_A1,
+    /* 0110 */ decode_D,
+    /* 0111 */ decode_D,
+    /* 1000 */ decode_A1,
+    /* 1001 */ decode_A1,
+    /* 1010 */ decode_undefined,
+    /* 1011 */ decode_A1,
+    /* 1100 */ decode_A1,
+    /* 1101 */ decode_A1,
+    /* 1110 */ decode_A1,
+    /* 1111 */ decode_undefined
 ]
 
 /* MEMORY */
@@ -190,11 +196,11 @@ var memory = new ArrayBuffer( 32 );
 var mem    = new DataView( memory );
 
 /* DISPLAY */
-var PAL_RES = { x : 320, y : 256 };
+var PAL_RES  = { x : 320, y : 256 };
 var NTSC_RES = { x : 320, y : 200 };
 
 // D0 located at 0x000 and D1 at 0x001 just for the hell of it.
-var FAKE_ADD = 0xD1C791C7; // this is TWO add opcodes
+var FAKE_OPS = 0xD1C791C7; // this is TWO add opcodes
                            // 1101 = add
                            // 000  = D0
                            // 000  = opmode (byte ea+dn->dn)
@@ -203,32 +209,60 @@ var FAKE_ADD = 0xD1C791C7; // this is TWO add opcodes
                            // 1101 000 000 000 001 = 0xD001
 
 /* add some opcodes to memory */
-mem.setUint32( 0, FAKE_ADD, false );
-mem.setUint32( 4, FAKE_ADD, false );
+mem.setUint32( 0, FAKE_OPS, false );
+mem.setUint32( 4, FAKE_OPS, false );
 
-var b0000 = parseInt( 0000, 2 );
-var b0001 = parseInt( 0001, 2 );
-var b0010 = parseInt( 0010, 2 );
-var b0011 = parseInt( 0011, 2 );
-var b0100 = parseInt( 0100, 2 );
-var b0101 = parseInt( 0101, 2 );
-var b0110 = parseInt( 0110, 2 );
-var b0111 = parseInt( 0111, 2 );
-var b1000 = parseInt( 1000, 2 );
-var b1001 = parseInt( 1001, 2 );
-var b1010 = parseInt( 1010, 2 );
-var b1011 = parseInt( 1011, 2 );
-var b1100 = parseInt( 1100, 2 );
-var b1101 = parseInt( 1101, 2 );
-var b1110 = parseInt( 1110, 2 );
-var b1111 = parseInt( 1111, 2 );
+var b0000 = 0x0;
+var b0001 = 0x1;
+var b0010 = 0x2;
+var b0011 = 0x3;
+var b0100 = 0x4;
+var b0101 = 0x5;
+var b0110 = 0x6;
+var b0111 = 0x7;
+var b1000 = 0x8;
+var b1001 = 0x9;
+var b1010 = 0xA;
+var b1011 = 0xB;
+var b1100 = 0xC;
+var b1101 = 0xD;
+var b1110 = 0xE;
+var b1111 = 0xF;
+
+// Binary masks from 1 bit up to 16 bits
+var MASK1B  = 0x1    ; // 1
+var MASK2B  = 0x3    ; // 11
+var MASK3B  = 0x7    ; // 111
+var MASK4B  = 0xF    ; // 1111
+var MASK5B  = 0x1F   ; // 11111
+var MASK6B  = 0x3F   ; // 111111
+var MASK7B  = 0x7F   ; // 1111111
+var MASK8B  = 0xFF   ; // 11111111
+var MASK9B  = 0x1FF  ; // 111111111
+var MASK10B = 0x3FF  ; // 1111111111
+var MASK11B = 0x7FF  ; // 11111111111
+var MASK12B = 0xFFF  ; // 111111111111
+var MASK13B = 0x1FFF ; // 1111111111111
+var MASK14B = 0x3FFF ; // 11111111111111
+var MASK15B = 0x7FFF ; // 111111111111111
+var MASK16B = 0xFFFF ; // 1111111111111111
 
 var stop_execution = false;
+
+var fetch16 = new Uint16Array( 1 );
 
 window.onload = function() {
     while( !stop_execution ) {
 
-        switch( ( mem.getUint16( PC[0] ) >> 4 ) ) {
+        // Fetch the first (and perhaps only) two bytes of the next instruction
+        fetch16 = mem.getUint16( PC[0] );
+
+        PC[0] += WORD_LENGTH;
+
+        console.log( "OPCODE @ PC=%d : %s",     PC[0], MAJOR_OPCODES[ ( fetch16 >> 12 ) ] );
+        console.log( "    ADDRESSING MODE: %d", DECODE_ADDRESSING_MODE[ fetch16 >> 12 ]( fetch16 ) );
+
+        switch( fetch16 >> 12 ) { // isolate the major four bits to determine the "major opcode" (not sure if this is an official term)
             case b0000: UNIMPLEMENTED( b0000 ); break;
             case b0001: UNIMPLEMENTED( b0001 ); break;
             case b0010: UNIMPLEMENTED( b0010 ); break;
@@ -244,18 +278,17 @@ window.onload = function() {
             case b1100: UNIMPLEMENTED( b1100 ); break;
 
             case b1101:
-                var opcode = mem.getUint16(PC[0]);
-                var regsrc = ( opcode >> 9 ) & 0x7;
-                var opmode = ( opcode >> 6 ) & 0x7;
-                var eamode = ( opcode >> 3 ) & 0x7;
-                var regsnk = ( opcode      ) & 0x7;
+                var regsrc = ( fetch16 >> 9 ) & MASK3B;
+                var opmode = ( fetch16 >> 6 ) & MASK3B;
+                var eamode = ( fetch16 >> 3 ) & MASK3B;
+                var regsnk = ( fetch16      ) & MASK3B;
 
                 console.log( "PARTIALLY IMPLEMENTED : %s at PC=%d\n" +
                     "\tregsrc : %s\n"+
                     "\topmode : %s\n"+
                     "\teamode : %s\n"+
                     "\tregsnk : %s",
-                    MAJOR_OPCODES[ ( opcode >> 12 ).toString(2) ],
+                    MAJOR_OPCODES[ ( fetch16 >> 12 ) ],
                     PC[0],
                     regsrc.toString(2),
                     opmode.toString(2),
@@ -263,7 +296,6 @@ window.onload = function() {
                     regsnk.toString(2)
                     );
 
-                PC[0] += WORD_LENGTH; // 1101 opcodes are 1 word wide
                 break;
 
             case b1110: UNIMPLEMENTED( b1110 ); break;
@@ -279,7 +311,6 @@ window.onload = function() {
 
 
 function UNIMPLEMENTED( _major_opcode ) {
-    console.log("UNIMPLEMENTED @ PC=%d : %s", PC[0], MAJOR_OPCODES[ _major_opcode.toString(2) ] );
+    console.error("UNIMPLEMENTED @ PC=%d : %s", PC[0], MAJOR_OPCODES[ _major_opcode ] );
     stop_execution=true;
-    PC[0] += WORD_LENGTH;
 }
