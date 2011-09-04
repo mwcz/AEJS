@@ -1,3 +1,10 @@
+/**
+ * integer to binary
+ * translates a number into a binary representation of that number
+ */
+function itob( _num ) {
+    return (_num).toString(2); 
+}
 
 /* DATA REGISTERS : 32 BITS */
 var D = new Uint32Array( 8 );
@@ -157,13 +164,13 @@ var MAJOR_OPCODES = [
 ]
 
 function decode_A1( _word ) {
-    return _word & MASK6B; // single operand address mode in 5-0
+    return _word | MASK6B; // single operand address mode in 5-0
 }
 function decode_A2( _word ) {
-    return _word & MASK12B; // double operand address mode in 11-0
+    return _word | MASK12B; // double operand address mode in 11-0
 }
 function decode_D( _word ) {
-    return _word & MASK8B; // data or offset in 7-0
+    return _word | MASK8B; // data or offset in 7-0
 }
 function decode_undefined( _word ) {
 }
@@ -189,7 +196,9 @@ var DECODE_ADDRESSING_MODE = [
     /* 1101 */ decode_A1,
     /* 1110 */ decode_A1,
     /* 1111 */ decode_undefined
-]
+];
+
+
 
 /* MEMORY */
 var memory = new ArrayBuffer( 32 );
@@ -201,16 +210,23 @@ var NTSC_RES = { x : 320, y : 200 };
 
 // D0 located at 0x000 and D1 at 0x001 just for the hell of it.
 var FAKE_OPS = 0xD1C791C7; // this is TWO add opcodes
-                           // 1101 = add
-                           // 000  = D0
-                           // 000  = opmode (byte ea+dn->dn)
-                           // 000  = addressing mode (dn)
-                           // 001  = D1
-                           // 1101 000 000 000 001 = 0xD001
+                            /********
+                             * ADD  *
+                             * 1101 *
+                             * 0001 *
+                             * 1100 *
+                             * 0111 *
+                             *      *
+                             * SUB  *
+                             * 1001 *
+                             * 0001 *
+                             * 1100 *
+                             * 0111 *
+                             ********/
 
 /* add some opcodes to memory */
 mem.setUint32( 0, FAKE_OPS, false );
-mem.setUint32( 4, FAKE_OPS, false );
+//mem.setUint32( 4, FAKE_OPS, false );
 
 var b0000 = 0x0;
 var b0001 = 0x1;
@@ -260,7 +276,8 @@ window.onload = function() {
         PC[0] += WORD_LENGTH;
 
         console.log( "OPCODE @ PC=%d : %s",     PC[0], MAJOR_OPCODES[ ( fetch16 >> 12 ) ] );
-        console.log( "    ADDRESSING MODE: %d", DECODE_ADDRESSING_MODE[ fetch16 >> 12 ]( fetch16 ) );
+        console.log( "    BINARY OPCODE  : %s", itob( fetch16 ) );
+        console.log( "    GENERALIZED OP : %s", itob( DECODE_ADDRESSING_MODE[ fetch16 >> 12 ]( fetch16 ) ) );
 
         switch( fetch16 >> 12 ) { // isolate the major four bits to determine the "major opcode" (not sure if this is an official term)
             case b0000: UNIMPLEMENTED( b0000 ); break;
@@ -283,7 +300,7 @@ window.onload = function() {
                 var eamode = ( fetch16 >> 3 ) & MASK3B;
                 var regsnk = ( fetch16      ) & MASK3B;
 
-                console.log( "PARTIALLY IMPLEMENTED : %s at PC=%d\n" +
+                console.log( "    PARTIALLY IMPLEMENTED : %s at PC=%d\n" +
                     "\tregsrc : %s\n"+
                     "\topmode : %s\n"+
                     "\teamode : %s\n"+
