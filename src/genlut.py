@@ -70,19 +70,15 @@ OPCODES = {
     "ORI to CCR" : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],
     "ORI to SR"  : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"        : [0,0,0,0,0,0,0,0,"S","MXn"],
+    "ANDI to CCR": [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
+    "ANDI to SR" : [0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,0],
+    "ANDI"       : [0,0,0,0,0,0,1,0,"S","MXn"],
+    "SUBI"       : [0,0,0,0,0,1,0,0,"S","MXn"],
+    "ADDI"       : [0,0,0,0,0,1,1,0,"S","MXn"],
+
 }
 
 INSTRUCTIONS = []
-
-def indexed_extend( _list, _index ):
-    
-    a_list = [ "I", "rad", "list" ]
-    b_list = [ "am", "a" ]
-    c_list = []
-
-    c_list.extend( a_list[:1] )
-    c_list.extend( b_list     )
-    c_list.extend( a_list[1:] )
 
 def isstatic( _bits ):
     """Returns true if the bits are all ones and zeroes (no patterns)"""
@@ -106,11 +102,9 @@ def gen( _bits, _name ):
         if b in PATTERNS:
             pat            = PATTERNS[b]
             pattern_length = len( pat )
-            print(pat)
 
             for p in pat:
                 bits_copy = copy( _bits )
-                print("popping",i,bits_copy[i],bits_copy)
                 bits_copy.pop(i)
                 bits_copy[i:i] = p
                 gen( bits_copy, _name )
@@ -120,8 +114,9 @@ def gen( _bits, _name ):
 
     return _bits
 
-gen(OPCODES["ORI to CCR"], "ORI to CCR")
-gen(OPCODES["ORI"], "ORI" )
+for op in OPCODES:
+    gen( OPCODES[op], op )
+    
 
 for instr in INSTRUCTIONS:
     print(instr)
