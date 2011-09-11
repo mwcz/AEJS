@@ -161,7 +161,7 @@ var MAJOR_OPCODES = [
     /* 1101 */ "[A1] ADD/ADDX (Add)",                                                                // A1  ADD/ADDX (Add)
     /* 1110 */ "[A1] Shift/Rotate/Bit Field (Shift & Rotate)",                                       // A1  Shift/Rotate/Bit Field (Shift & Rotate)
     /* 1111 */ "[-]  Coprocessor Interface/MC68040 and CPU32 Extensions (Illegal (Floating-point))", // -   Coprocessor Interface/MC68040 and CPU32 Extensions (Illegal (Floating-point))
-]
+];
 
 function decode_A1( _word ) {
     return _word | MASK6B; // single operand address mode in 5-0
@@ -197,8 +197,6 @@ var DECODE_ADDRESSING_MODE = [
     /* 1110 */ decode_A1,
     /* 1111 */ decode_undefined
 ];
-
-
 
 /* MEMORY */
 var memory = new ArrayBuffer( 32 );
@@ -268,16 +266,19 @@ var stop_execution = false;
 var fetch16 = new Uint16Array( 1 );
 
 window.onload = function() {
+
+    // main emulation loop
     while( !stop_execution ) {
 
         // Fetch the first (and perhaps only) two bytes of the next instruction
         fetch16 = mem.getUint16( PC[0] );
+        fetch4  = fetch16 >> 12;
 
         PC[0] += WORD_LENGTH;
 
-        console.log( "OPCODE @ PC=%d : %s",     PC[0], MAJOR_OPCODES[ ( fetch16 >> 12 ) ] );
+        console.log( "OPCODE @ PC=%d : %s",     PC[0], MAJOR_OPCODES[ ( fetch4 ) ] );
         console.log( "    BINARY OPCODE  : %s", itob( fetch16 ) );
-        console.log( "    GENERALIZED OP : %s", itob( DECODE_ADDRESSING_MODE[ fetch16 >> 12 ]( fetch16 ) ) );
+        console.log( "    GENERALIZED OP : %s", itob( DECODE_ADDRESSING_MODE[ fetch4 ]( fetch16 ) ) );
 
         switch( fetch16 >> 12 ) { // isolate the major four bits to determine the "major opcode" (not sure if this is an official term)
             case b0000: UNIMPLEMENTED( b0000 ); break;
