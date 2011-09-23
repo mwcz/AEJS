@@ -5,9 +5,13 @@ import sys
 
 # Generate a LUT for all 68k opcodes
 
+#**************************
+#
+# Common patterns
+#
+#**************************
 
-PATTERNS = {
-
+COMMON_PATTERNS = {#{{{
     # one bit
     "b" : { "length" : 1,
             "bits":
@@ -22,39 +26,7 @@ PATTERNS = {
             [1,0], ]
           },
 
-
-    "MOVEA_S" : { "length" : 2,
-            "bits":
-          [ # size
-            [1,0], 
-            [1,1], ]
-          },
-
-   "EA" : { "length" : 3,
-            "bits":
-          [ # mode and Xn
-            [0,0,0,"Xn"],
-            [0,0,1,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
-            [1,1,1,"M111Xn"], ]
-          },
-
-
-   "CALLM_EA_MODE" : { "length" : 3,
-            "bits":
-          [ # mode and Xn
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
-            [1,1,1,"M111Xn"], ]
-          },
-
+   # A register number, 0 through 7
    "Xn" : { "length" : 3,
             "bits":
           [ # register number
@@ -68,6 +40,17 @@ PATTERNS = {
             [1,1,1], ]
           },
 
+
+}#}}}
+
+#**************************
+#
+# Operand patterns
+#
+#**************************
+
+PATTERNS = {#{{{
+
 "OPMODE": { "length" : 3, 
             "bits":
           [ # used in MOVEP, and perhaps other ops
@@ -75,14 +58,6 @@ PATTERNS = {
             [1,0,1],
             [1,1,0],
             [1,1,1], ]
-          },
-
-
-"M111Xn": { "length" : 3,
-            "bits":
-          [ # the valid register numbers when the addressing mode is (xxx).W or (xxx).L
-            [0,0,0],
-            [0,0,1], ]
           },
 
  "COND" : { "length" : 4,
@@ -105,14 +80,312 @@ PATTERNS = {
             [1,1,1,0,],
             [1,1,1,1,], ]
           },
-}
 
-# Mode and Xn
+# ORI {{{
 
+"ORI_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
 
+"ORI_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"ORI_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"ORI_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]
+          },#}}}
+# ANDI {{{
+
+"ANDI_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
+
+"ANDI_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"ANDI_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"ANDI_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]
+          },#}}}
+# SUBI {{{
+
+"SUBI_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
+
+"SUBI_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"SUBI_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"SUBI_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]
+          },#}}}
+# RTM {{{
+"RTM_b" : COMMON_PATTERNS["b"],
+"RTM_Xn" : COMMON_PATTERNS["Xn"],
+          #}}}
+# CALLM {{{
+
+"CALLM_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,1,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"CALLM_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CALLM_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ]
+          },#}}}
+# ADDI {{{
+
+"ADDI_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
+
+"ADDI_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"ADDI_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"ADDI_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]
+          },#}}}
+# CMP2/CHK2 {{{
+
+"CMP2/CHK2_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
+
+"CMP2/CHK2_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,1,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"CMP2/CHK2_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CMP2/CHK2_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ]
+          },#}}}
+# EORI {{{
+
+"EORI_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
+
+"EORI_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"EORI_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"EORI_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]
+          },#}}}
+# CMPI {{{
+
+"CMPI_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ]
+          },
+
+"CMPI_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"CMPI_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CMPI_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ]
+          },#}}}
+# BTST_DYNAMIC {{{
+
+"BTST_Xn" : COMMON_PATTERNS[ "Xn" ],
+
+"BTST_DYNAMIC_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"BTST_DYNAMIC_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"BTST_DYNAMIC_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ]
+          },#}}}
+# BTST_STATIC {{{
+
+"BTST_STATIC_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"BTST_STATIC_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"BTST_STATIC_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ]
+          },#}}}
+}#}}}
+
+# Include COMMON_PATTERNS in PATTERNS
+PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
@@ -122,19 +395,19 @@ OPCODES = {
     "RTM"           : [0,0,0,0,0,1,1,0,1,1,0,0,"RTM_b","RTM_Xn"],
     "CALLM"         : [0,0,0,0,0,1,1,0,1,1,"CALLM_EA"],
     "ADDI"          : [0,0,0,0,0,1,1,0,"ADDI_S","ADDI_EA"],
-    "CMP2/CHK2"     : [0,0,0,0,0,"CMP2/CHK2_S",0,1,1,"CMP2/CHK2_EA"], # See Note 1.0
+    "CMP2/CHK2"     : [0,0,0,0,0,"CMP2/CHK2_S",0,1,1,"CMP2/CHK2_EA"], # See Note 1.0#}}}
     "EORI_to_CCR"   : [0,0,0,0,1,0,1,0,0,0,1,1,1,1,0,0],
-    "EORI_to_SR"    : [0,0,0,0,1,0,1,0,0,1,1,1,1,1,0,0],
-    "EORI"          : [0,0,0,0,1,0,1,0,"EORI_S","EORI_EA"],
-    "CMPI"          : [0,0,0,0,1,1,0,0,"CMPI_S","CMPI_EA"],
-    "BTST"          : [0,0,0,0,1,0,0,0,0,0,"BTST_EA"],
+    "EORI_to_SR"    : [0,0,0,0,1,0,1,0,0,1,1,1,1,1,0,0],#}}}
+    "EORI"          : [0,0,0,0,1,0,1,0,"EORI_S","EORI_EA"],#}}}
+    "CMPI"          : [0,0,0,0,1,1,0,0,"CMPI_S","CMPI_EA"],#}}}
+    "BTST_DYNAMIC"  : [0,0,0,0,"BTST_Xn",1,0,0,"BTST_DYNAMIC_EA"],
+    "BTST_STATIC"   : [0,0,0,0,1,0,0,0,0,0,"BTST_STATIC_EA"],
     "BCHG"          : [0,0,0,0,1,0,0,0,0,1,"BCHG_EA"],
     "BCLR"          : [0,0,0,0,1,0,0,0,1,0,"BCLR_EA"],
     "BSET"          : [0,0,0,0,1,0,0,0,1,1,"BSET_EA"],
     "MOVES"         : [0,0,0,0,1,1,1,0,"MOVES_S","MOVES_EA"],
     "CAS2"          : [0,0,0,0,1,"CAS2_S",0,1,1,1,1,1,1,0,0],
     "CAS"           : [0,0,0,0,"CAS_S",0,1,1,"CAS_EA"],
-    "BTST"          : [0,0,0,0,"BTST_Xn",1,0,0,"BTST_EA"],
     "BCHG"          : [0,0,0,0,"BCHG_Xn",1,0,1,"BCHG_EA"],
     "BCLR"          : [0,0,0,0,"BCLR_Xn",1,1,0,"BCLR_EA"],
     "BSET"          : [0,0,0,0,"BSET_Xn",1,1,1,"BSET_EA"],
