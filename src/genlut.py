@@ -5,6 +5,19 @@ import sys
 
 # Generate a LUT for all 68k opcodes
 
+# Yes, this is in Python.  Yes, AEJS is a JavaScript project.
+# 
+# I am still not sure if the LUT is something that will be 
+# generated once and served up statically, or if generation
+# will be fast enough that it can be generated at launch-time.
+# 
+# If generation of the LUT is fast enough, I'll port this
+# code into JavaScript and run it at launch.
+# 
+# If it needs to be served up statically, I'll simply take 
+# the output from the Python script and regex it into a 
+# JavaScript array.
+
 #**************************
 #
 # Common patterns
