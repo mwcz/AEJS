@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 #  This file is part of AEJS (http://aejs.org/).
 #
@@ -32,6 +32,10 @@ import sys
 # If it needs to be served up statically, I'll simply take 
 # the output from the Python script and regex it into a 
 # JavaScript array.
+#
+# Oh, and please forgive the sloppy formatting.  Typing this
+# takes a long time so I tried to get it done as quickly as
+# possible.
 
 #**************************
 #
@@ -68,6 +72,15 @@ COMMON_PATTERNS = {#{{{
             [1,1,1], ]
           },
 
+"OPMODE": { "length" : 3, 
+            "bits":
+          [ # used in MOVEP, and perhaps other ops
+            [1,0,0],
+            [1,0,1],
+            [1,1,0],
+            [1,1,1], ]
+          },
+
 
 }#}}}
 
@@ -78,15 +91,6 @@ COMMON_PATTERNS = {#{{{
 #**************************
 
 PATTERNS = {#{{{
-
-"OPMODE": { "length" : 3, 
-            "bits":
-          [ # used in MOVEP, and perhaps other ops
-            [1,0,0],
-            [1,0,1],
-            [1,1,0],
-            [1,1,1], ]
-          },
 
  "COND" : { "length" : 4,
             "bits":
@@ -642,13 +646,114 @@ PATTERNS = {#{{{
             [0,0,1],
           ]
           },#}}}
-}#}}}
+# CAS2 {{{
 
+"CAS2_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [1,0],
+            [1,1], ]
+          },#}}}
+# MOVEP {{{
+
+"MOVEP_Xn" : COMMON_PATTERNS["Xn"],
+"MOVEP_OPMODE" : COMMON_PATTERNS["OPMODE"],
+
+        #}}}
+# MOVEA {{{
+
+"MOVEA_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [1,0],
+            [1,1], ]
+          },
+
+"MOVEA_DN" : COMMON_PATTERNS["Xn"],
+
+"MOVEA_SOURCE" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,0,1,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVEA_ABS_REG" ],
+          ]},
+
+"MOVEA_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+          ],
+
+          },#}}}
+# MOVE {{{
+
+"MOVE_S" : { "length" : 2,
+            "bits":
+          [ # condition
+            [0,1],
+            [1,0],
+            [1,1], ]
+          },
+
+"MOVE_DESTINATION" : { "length" : 3,
+            "bits":
+          [ # condition
+            ["Xn",0,0,0],
+            ["Xn",0,1,0],
+            ["Xn",0,1,1],
+            ["Xn",1,0,0],
+            ["Xn",1,0,1],
+            ["Xn",1,1,0],
+            ["MOVE_DESTINATION_ABS_REG",1,1,1],
+          ]},
+"MOVE_DESTINATION_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]},
+
+"MOVE_SOURCE" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,0,1,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVE_ABS_REG" ],
+          ]},
+
+"MOVE_SOURCE_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+          ],
+
+          },#}}}
+
+}#}}}
 # Include COMMON_PATTERNS in PATTERNS
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
@@ -673,10 +778,10 @@ OPCODES = {
     "BSET_DYNAMIC"  : [0,0,0,0,"BSET_Xn",1,1,1,"BSET_EA"],#}}}
     "MOVES"         : [0,0,0,0,1,1,1,0,"MOVES_S","MOVES_EA"],#}}}
     "CAS"           : [0,0,0,0,1,"CAS_S",0,1,1,"CAS_EA"],#}}}
-    "CAS2"          : [0,0,0,0,1,"CAS2_S",0,1,1,1,1,1,1,0,0],
-    "MOVEP"         : [0,0,0,0,"MOVEP_Xn","MOVEP_OPMODE",0,0,1,"MOVEP_Xn"],
-    "MOVEA"         : [0,0,"MOVEA_S","MOVEA_DN",0,0,1,"MOVEA_SOURCE"],
-    "MOVE"          : [0,0,"MOVE_S","MOVE_DESTINATION","MOVE_SOURCE"],
+    "CAS2"          : [0,0,0,0,1,"CAS2_S",0,1,1,1,1,1,1,0,0],#}}}
+    "MOVEP"         : [0,0,0,0,"MOVEP_Xn","MOVEP_OPMODE",0,0,1,"MOVEP_Xn"],#}}}
+    "MOVEA"         : [0,0,"MOVEA_S","MOVEA_DN",0,0,1,"MOVEA_SOURCE"],#}}}
+    "MOVE"          : [0,0,"MOVE_S","MOVE_DESTINATION","MOVE_SOURCE"],#}}}
     "MOVE_from_SR"  : [0,1,0,0,0,0,0,0,1,1,"MOVE_from_SR_SOURCE"],
     "MOVE_from_CCR" : [0,1,0,0,0,0,1,0,1,1,"MOVE_from_CCR_EA"],
     "NEGX"          : [0,1,0,0,0,0,0,0,"NEGX_SIZE1","NEGX_EA"],
@@ -770,7 +875,7 @@ OPCODES = {
 #           in them.
 
 INSTRUCTIONS = []
-for i in xrange(2**16):
+for i in range(2**16):
     INSTRUCTIONS.append( None )
 
 def isstatic( _bits ):
@@ -836,11 +941,11 @@ def gen( _bits, _name ):
 
 for op in OPCODES:
     if op != None:
-        print( "Generating bit patterns for %s... " % op )
+        #print( "Generating bit patterns for %s... " % op )
         gen( OPCODES[op], op )
 
-for i in xrange(len(INSTRUCTIONS)):
+for i in range(len(INSTRUCTIONS)):
     if INSTRUCTIONS[i] != None:
-        print( "%s -> %s" % ( bin(i)[2:], INSTRUCTIONS[i] ) )
+        print( "{:016b} -> {:s}".format( i, INSTRUCTIONS[i] ) )
 
 # vim: set foldmethod=marker:
