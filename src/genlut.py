@@ -116,11 +116,34 @@ PATTERNS = {#{{{
           ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"ORI_ABS_REG" : [
+"ORI_ABS_REG" : [ # condition
             [0,0,0],
-            [0,0,1],
-          ],#}}}
-"SUBI_S" : [
+            [0,0,1], ],
+# ANDI {{{
+
+"ANDI_S" : [ # condition
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"ANDI_EA" : [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"ANDI_ABS_REG" ], ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"ANDI_ABS_REG" : [ # condition
+            [0,0,0],
+            [0,0,1], ],
+#}}}
+
+# SUBI {{{
+
+"SUBI_S" : [ # condition
             [0,0],
             [0,1],
             [1,0], ],
@@ -514,6 +537,7 @@ PATTERNS = {#{{{
             ["Xn",1,0,1],
             ["Xn",1,1,0],
             ["MOVE_DESTINATION_ABS_REG",1,1,1],],
+
 "MOVE_DESTINATION_ABS_REG" : [
             [0,0,0],
             [0,0,1],],
