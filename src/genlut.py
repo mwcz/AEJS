@@ -119,6 +119,7 @@ PATTERNS = {#{{{
 "ORI_ABS_REG" : [ # condition
             [0,0,0],
             [0,0,1], ],
+#}}}
 # ANDI {{{
 
 "ANDI_S" : [ # condition
@@ -140,7 +141,6 @@ PATTERNS = {#{{{
             [0,0,0],
             [0,0,1], ],
 #}}}
-
 # SUBI {{{
 
 "SUBI_S" : [ # condition
@@ -161,7 +161,7 @@ PATTERNS = {#{{{
 # The register number when the addressing mode is absolute (Mode 111)
 "SUBI_ABS_REG" : [
             [0,0,0],
-            [0,0,1],],#}}
+            [0,0,1],],#}}}
 # RTM {{{
 "RTM_b" : COMMON_PATTERNS["b"],
 "RTM_Xn" : COMMON_PATTERNS["Xn"],
