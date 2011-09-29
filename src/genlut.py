@@ -577,6 +577,159 @@ PATTERNS = {#{{{
             [0,0,0],
             [0,0,1],
           ],#}}}
+# MOVE_from_CCR {{{
+
+"MOVE_from_CCR_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVE_from_CCR_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MOVE_from_CCR_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# NEGX {{{
+
+"NEGX_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"NEGX_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"NEGX_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"NEGX_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# CLR {{{
+
+"CLR_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"CLR_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"CLR_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CLR_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# MOVE_to_CCR {{{
+
+"MOVE_to_CCR_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVE_to_CCR_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MOVE_to_CCR_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# NEG {{{
+
+"NEG_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"NEG_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"NEG_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"NEG_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# NOT {{{
+
+"NOT_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"NOT_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"NOT_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"NOT_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# MOVE_to_SR {{{
+
+"MOVE_to_SR_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVE_to_SR_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MOVE_to_SR_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# EXT/EXTB {{{
+
+"EXT/EXTB_REGISTER" : COMMON_PATTERNS["Xn"],
+"EXT/EXTB_OPMODE" : [
+            [0,1,0],
+            [0,1,1],
+            [1,1,1],
+          ],#}}}
 
 }#}}}
 
@@ -584,7 +737,7 @@ PATTERNS = {#{{{
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
@@ -614,14 +767,14 @@ OPCODES = {
     "MOVEA"         : [0,0,"MOVEA_S","MOVEA_DN",0,0,1,"MOVEA_SOURCE"],#}}}
     "MOVE"          : [0,0,"MOVE_S","MOVE_DESTINATION","MOVE_SOURCE"],#}}}
     "MOVE_from_SR"  : [0,1,0,0,0,0,0,0,1,1,"MOVE_from_SR_EA"],#}}}
-    "MOVE_from_CCR" : [0,1,0,0,0,0,1,0,1,1,"MOVE_from_CCR_EA"],
-    "NEGX"          : [0,1,0,0,0,0,0,0,"NEGX_SIZE1","NEGX_EA"],
-    "CLR"           : [0,1,0,0,0,0,1,0,"CLR_SIZE","CLR_EA"],
-    "MOVE_to_CCR"   : [0,1,0,0,0,1,0,0,1,1,"MOVE_to_CCR_EA"],
-    "NEG"           : [0,1,0,0,0,1,0,0,"NEG_SIZE","NEG_EA"],
-    "NOT"           : [0,1,0,0,0,1,1,0,"NOT_SIZE","NOT_EA"],
-    "MOVE_to_SR"    : [0,1,0,0,0,1,1,0,1,1,"MOVE_to_SR_EA"],
-    "EXT/EXTB"      : [0,1,0,0,1,0,0,"EXT/EXTB_OPMODE",0,0,0,"EXT/EXTB_REGISTER"],
+    "MOVE_from_CCR" : [0,1,0,0,0,0,1,0,1,1,"MOVE_from_CCR_EA"],#}}}
+    "NEGX"          : [0,1,0,0,0,0,0,0,"NEGX_SIZE1","NEGX_EA"],#}}}
+    "CLR"           : [0,1,0,0,0,0,1,0,"CLR_SIZE","CLR_EA"],#}}}
+    "MOVE_to_CCR"   : [0,1,0,0,0,1,0,0,1,1,"MOVE_to_CCR_EA"],#}}}
+    "NEG"           : [0,1,0,0,0,1,0,0,"NEG_SIZE","NEG_EA"],#}}}
+    "NOT"           : [0,1,0,0,0,1,1,0,"NOT_SIZE","NOT_EA"],#}}}
+    "MOVE_to_SR"    : [0,1,0,0,0,1,1,0,1,1,"MOVE_to_SR_EA"],#}}}
+    "EXT/EXTB"      : [0,1,0,0,1,0,0,"EXT/EXTB_OPMODE",0,0,0,"EXT/EXTB_REGISTER"],#}}}
     "LINK_LONG"     : [0,1,0,0,1,0,0,0,0,0,0,0,1,"LINK_REGISTER"],
     "LINK_WORD"     : [0,1,0,0,1,1,1,0,0,1,0,1,0,"LINK_REGISTER"],
     "NBCD"          : [0,1,0,0,1,0,0,0,0,0,0,"NBCD_EA"],
