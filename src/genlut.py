@@ -621,9 +621,9 @@ PATTERNS = {#{{{
 "CAS_S" : { "length" : 2,
             "bits":
           [ # condition
-            [0,0],
             [0,1],
-            [1,0], ]
+            [1,0],
+            [1,1], ]
           },
 
 "CAS_EA" : { "length" : 3,
@@ -747,13 +747,36 @@ PATTERNS = {#{{{
           ],
 
           },#}}}
+# MOVE_from_SR {{{
+
+"MOVE_from_SR_EA" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVE_from_SR_ABS_REG" ],
+          ]
+          },
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MOVE_from_SR_ABS_REG" : { "length" : 3,
+            "bits":
+          [ # condition
+            [0,0,0],
+            [0,0,1],
+          ]
+          },#}}}
 
 }#}}}
 # Include COMMON_PATTERNS in PATTERNS
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
@@ -770,19 +793,19 @@ OPCODES = {
     "CMPI"          : [0,0,0,0,1,1,0,0,"CMPI_S","CMPI_EA"],#}}}
     "BTST_DYNAMIC"  : [0,0,0,0,"BTST_Xn",1,0,0,"BTST_DYNAMIC_EA"],
     "BTST_STATIC"   : [0,0,0,0,1,0,0,0,0,0,"BTST_STATIC_EA"],#}}}
-    "BCHG_STATIC"   : [0,0,0,0,1,0,0,0,0,1,"BCHG_EA"],
-    "BCHG_DYNAMIC"  : [0,0,0,0,"BCHG_Xn",1,0,1,"BCHG_EA"],#}}}
+    "BCHG_STATIC"   : [0,0,0,0,1,0,0,0,0,1,"BCHG_STATIC_EA"],
+    "BCHG_DYNAMIC"  : [0,0,0,0,"BCHG_Xn",1,0,1,"BCHG__DYNAMIC_EA"],#}}}
     "BCLR"          : [0,0,0,0,1,0,0,0,1,0,"BCLR_EA"],
     "BCLR"          : [0,0,0,0,"BCLR_Xn",1,1,0,"BCLR_EA"],#}}}
-    "BSET_STATIC"   : [0,0,0,0,1,0,0,0,1,1,"BSET_EA"],
-    "BSET_DYNAMIC"  : [0,0,0,0,"BSET_Xn",1,1,1,"BSET_EA"],#}}}
+    "BSET_STATIC"   : [0,0,0,0,1,0,0,0,1,1,"BSET_STATIC_EA"],
+    "BSET_DYNAMIC"  : [0,0,0,0,"BSET_Xn",1,1,1,"BSET_DYNAMIC_EA"],#}}}
     "MOVES"         : [0,0,0,0,1,1,1,0,"MOVES_S","MOVES_EA"],#}}}
     "CAS"           : [0,0,0,0,1,"CAS_S",0,1,1,"CAS_EA"],#}}}
     "CAS2"          : [0,0,0,0,1,"CAS2_S",0,1,1,1,1,1,1,0,0],#}}}
     "MOVEP"         : [0,0,0,0,"MOVEP_Xn","MOVEP_OPMODE",0,0,1,"MOVEP_Xn"],#}}}
     "MOVEA"         : [0,0,"MOVEA_S","MOVEA_DN",0,0,1,"MOVEA_SOURCE"],#}}}
     "MOVE"          : [0,0,"MOVE_S","MOVE_DESTINATION","MOVE_SOURCE"],#}}}
-    "MOVE_from_SR"  : [0,1,0,0,0,0,0,0,1,1,"MOVE_from_SR_SOURCE"],
+    "MOVE_from_SR"  : [0,1,0,0,0,0,0,0,1,1,"MOVE_from_SR_EA"],#}}}
     "MOVE_from_CCR" : [0,1,0,0,0,0,1,0,1,1,"MOVE_from_CCR_EA"],
     "NEGX"          : [0,1,0,0,0,0,0,0,"NEGX_SIZE1","NEGX_EA"],
     "CLR"           : [0,1,0,0,0,0,1,0,"CLR_SIZE","CLR_EA"],
