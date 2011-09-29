@@ -45,23 +45,15 @@ import sys
 
 COMMON_PATTERNS = {#{{{
     # one bit
-    "b" : { "length" : 1,
-            "bits":
-          [ [0],[1], ],
-          },
+    "b" : [ [0],[1], ],
 
-    "S" : { "length" : 2,
-            "bits":
-          [ # size
+    "S" : [ # size
             [0,0], 
             [0,1], 
-            [1,0], ]
-          },
+            [1,0], ],
 
    # A register number, 0 through 7
-   "Xn" : { "length" : 3,
-            "bits":
-          [ # register number
+   "Xn" : [ # register number
             [0,0,0],
             [0,0,1],
             [0,1,0],
@@ -69,17 +61,13 @@ COMMON_PATTERNS = {#{{{
             [1,0,0],
             [1,0,1],
             [1,1,0],
-            [1,1,1], ]
-          },
+            [1,1,1], ],
 
-"OPMODE": { "length" : 3, 
-            "bits":
-          [ # used in MOVEP, and perhaps other ops
+"OPMODE": [ # used in MOVEP, and perhaps other ops
             [1,0,0],
             [1,0,1],
             [1,1,0],
-            [1,1,1], ]
-          },
+            [1,1,1], ],
 
 
 }#}}}
@@ -92,9 +80,7 @@ COMMON_PATTERNS = {#{{{
 
 PATTERNS = {#{{{
 
- "COND" : { "length" : 4,
-            "bits":
-          [ # condition
+ "COND" : [
             [0,0,0,0,],
             [0,0,0,1,],
             [0,0,1,0,],
@@ -110,22 +96,16 @@ PATTERNS = {#{{{
             [1,1,0,0,],
             [1,1,0,1,],
             [1,1,1,0,],
-            [1,1,1,1,], ]
-          },
+            [1,1,1,1,], ],
 
 # ORI {{{
 
-"ORI_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"ORI_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"ORI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"ORI_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -133,61 +113,19 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"ORI_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"ORI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"ORI_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
-# ANDI {{{
-
-"ANDI_S" : { "length" : 2,
-            "bits":
-          [ # condition
+          ],#}}}
+"SUBI_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"ANDI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
-            [1,1,1,"ANDI_ABS_REG" ],
-          ]
-          },
-
-# The register number when the addressing mode is absolute (Mode 111)
-"ANDI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
-            [0,0,0],
-            [0,0,1],
-          ]
-          },#}}}
-# SUBI {{{
-
-"SUBI_S" : { "length" : 2,
-            "bits":
-          [ # condition
-            [0,0],
-            [0,1],
-            [1,0], ]
-          },
-
-"SUBI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"SUBI_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -195,56 +133,40 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"SUBI_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"SUBI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"SUBI_ABS_REG" : [
             [0,0,0],
-            [0,0,1],
-          ]
-          },#}}}
+            [0,0,1],],#}}
 # RTM {{{
 "RTM_b" : COMMON_PATTERNS["b"],
 "RTM_Xn" : COMMON_PATTERNS["Xn"],
           #}}}
 # CALLM {{{
 
-"CALLM_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"CALLM_EA" : [
             [0,1,0,"Xn"],
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"CALLM_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"CALLM_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"CALLM_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [0,1,0],
             [0,1,1],
-          ]
-          },#}}}
+          ],#}}}
 # ADDI {{{
 
-"ADDI_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"ADDI_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"ADDI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"ADDI_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -252,60 +174,42 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"ADDI_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"ADDI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"ADDI_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # CMP2/CHK2 {{{
 
-"CMP2/CHK2_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"CMP2/CHK2_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"CMP2/CHK2_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"CMP2/CHK2_EA" : [
             [0,1,0,"Xn"],
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"CMP2/CHK2_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"CMP2/CHK2_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"CMP2/CHK2_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [0,1,0],
             [0,1,1],
-          ]
-          },#}}}
+          ],#}}}
 # EORI {{{
 
-"EORI_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"EORI_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"EORI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"EORI_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -313,30 +217,21 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"EORI_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"EORI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"EORI_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # CMPI {{{
 
-"CMPI_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"CMPI_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"CMPI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"CMPI_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -344,26 +239,20 @@ PATTERNS = {#{{{
             [1,0,0,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"CMPI_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"CMPI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"CMPI_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [0,1,0],
             [0,1,1],
-          ]
-          },#}}}
+          ],#}}}
 # BTST_DYNAMIC {{{
 
 "BTST_Xn" : COMMON_PATTERNS[ "Xn" ],
 
-"BTST_DYNAMIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BTST_DYNAMIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -371,25 +260,19 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BTST_DYNAMIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BTST_DYNAMIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BTST_DYNAMIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [0,1,0],
             [0,1,1],
             [1,0,0],
-          ]
-          },#}}}
+          ],#}}}
 # BTST_STATIC {{{
 
-"BTST_STATIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BTST_STATIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -397,27 +280,21 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BTST_STATIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BTST_STATIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BTST_STATIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [0,1,0],
             [0,1,1],
             [1,0,0],
-          ]
-          },#}}}
+          ],#}}}
 # BCHG_DYNAMIC {{{
 
 "BCHG_Xn" : COMMON_PATTERNS[ "Xn" ],
 
-"BCHG_DYNAMIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCHG_DYNAMIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -425,22 +302,16 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BCHG_DYNAMIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BCHG_DYNAMIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCHG_DYNAMIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # BCHG_STATIC {{{
 
-"BCHG_STATIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCHG_STATIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -448,24 +319,18 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BCHG_STATIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BCHG_STATIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCHG_STATIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # BCLR_DYNAMIC {{{
 
 "BCLR_Xn" : COMMON_PATTERNS[ "Xn" ],
 
-"BCLR_DYNAMIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCLR_DYNAMIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -473,22 +338,16 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BCLR_DYNAMIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BCLR_DYNAMIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCLR_DYNAMIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # BCLR_STATIC {{{
 
-"BCLR_STATIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCLR_STATIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -496,30 +355,21 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BCLR_STATIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BCLR_STATIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BCLR_STATIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # EORI {{{
 
-"EORI_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"EORI_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"EORI_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"EORI_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -527,24 +377,18 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"EORI_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"EORI_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"EORI_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # BSET_DYNAMIC {{{
 
 "BSET_Xn" : COMMON_PATTERNS[ "Xn" ],
 
-"BSET_DYNAMIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BSET_DYNAMIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -552,22 +396,16 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BSET_DYNAMIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BSET_DYNAMIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BSET_DYNAMIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # BSET_STATIC {{{
 
-"BSET_STATIC_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"BSET_STATIC_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -575,85 +413,60 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"BSET_STATIC_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"BSET_STATIC_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"BSET_STATIC_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # MOVES {{{
 
-"MOVES_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"MOVES_S" : [
             [0,0],
             [0,1],
-            [1,0], ]
-          },
+            [1,0], ],
 
-"MOVES_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVES_EA" : [
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
             [1,0,0,"Xn"],
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"MOVES_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"MOVES_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVES_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # CAS {{{
 
-"CAS_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"CAS_S" : [
             [0,1],
             [1,0],
-            [1,1], ]
-          },
+            [1,1], ],
 
-"CAS_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"CAS_EA" : [
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
             [1,0,0,"Xn"],
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"CAS_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"CAS_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"CAS_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 # CAS2 {{{
 
-"CAS2_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"CAS2_S" : [
             [1,0],
-            [1,1], ]
-          },#}}}
+            [1,1], ],#}}}
 # MOVEP {{{
 
 "MOVEP_Xn" : COMMON_PATTERNS["Xn"],
@@ -662,18 +475,13 @@ PATTERNS = {#{{{
         #}}}
 # MOVEA {{{
 
-"MOVEA_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"MOVEA_S" : [
             [1,0],
-            [1,1], ]
-          },
+            [1,1], ],
 
 "MOVEA_DN" : COMMON_PATTERNS["Xn"],
 
-"MOVEA_SOURCE" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVEA_SOURCE" : [
             [0,0,0,"Xn"],
             [0,0,1,"Xn"],
             [0,1,0,"Xn"],
@@ -681,51 +489,36 @@ PATTERNS = {#{{{
             [1,0,0,"Xn"],
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
-            [1,1,1,"MOVEA_ABS_REG" ],
-          ]},
+            [1,1,1,"MOVEA_ABS_REG" ],],
 
-"MOVEA_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVEA_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [1,0,0],
             [0,1,0],
             [0,1,1],
           ],
-
-          },#}}}
+#}}}
 # MOVE {{{
 
-"MOVE_S" : { "length" : 2,
-            "bits":
-          [ # condition
+"MOVE_S" : [
             [0,1],
             [1,0],
-            [1,1], ]
-          },
+            [1,1], ],
 
-"MOVE_DESTINATION" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVE_DESTINATION" : [
             ["Xn",0,0,0],
             ["Xn",0,1,0],
             ["Xn",0,1,1],
             ["Xn",1,0,0],
             ["Xn",1,0,1],
             ["Xn",1,1,0],
-            ["MOVE_DESTINATION_ABS_REG",1,1,1],
-          ]},
-"MOVE_DESTINATION_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+            ["MOVE_DESTINATION_ABS_REG",1,1,1],],
+"MOVE_DESTINATION_ABS_REG" : [
             [0,0,0],
-            [0,0,1],
-          ]},
+            [0,0,1],],
 
-"MOVE_SOURCE" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVE_SOURCE" : [
             [0,0,0,"Xn"],
             [0,0,1,"Xn"],
             [0,1,0,"Xn"],
@@ -733,25 +526,19 @@ PATTERNS = {#{{{
             [1,0,0,"Xn"],
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
-            [1,1,1,"MOVE_ABS_REG" ],
-          ]},
+            [1,1,1,"MOVE_ABS_REG" ],],
 
-"MOVE_SOURCE_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVE_SOURCE_ABS_REG" : [
             [0,0,0],
             [0,0,1],
             [1,0,0],
             [0,1,0],
             [0,1,1],
           ],
-
-          },#}}}
+#}}}
 # MOVE_from_SR {{{
 
-"MOVE_from_SR_EA" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVE_from_SR_EA" : [
             [0,0,0,"Xn"],
             [0,1,0,"Xn"],
             [0,1,1,"Xn"],
@@ -759,19 +546,16 @@ PATTERNS = {#{{{
             [1,0,1,"Xn"],
             [1,1,0,"Xn"],
             [1,1,1,"MOVE_from_SR_ABS_REG" ],
-          ]
-          },
+          ],
 
 # The register number when the addressing mode is absolute (Mode 111)
-"MOVE_from_SR_ABS_REG" : { "length" : 3,
-            "bits":
-          [ # condition
+"MOVE_from_SR_ABS_REG" : [
             [0,0,0],
             [0,0,1],
-          ]
-          },#}}}
+          ],#}}}
 
 }#}}}
+
 # Include COMMON_PATTERNS in PATTERNS
 PATTERNS.update( COMMON_PATTERNS )
 
@@ -947,8 +731,8 @@ def gen( _bits, _name ):
         pattern_length = 1
 
         if b in PATTERNS:
-            pat            = PATTERNS[b]["bits"]
-            pattern_length = PATTERNS[b]["length"]
+            pat            = PATTERNS[b]
+            pattern_length = len( [ bit for bit in pat if bit in [0,1] ] )
 
             for p in pat:
                 bits_copy = deepcopy( _bits )
