@@ -63,6 +63,24 @@ COMMON_PATTERNS = {#{{{
             [1,1,0],
             [1,1,1], ],
 
+"vector4" : [
+            [0,0,0,0],
+            [0,0,0,1],
+            [0,0,1,0],
+            [0,0,1,1],
+            [0,1,0,0],
+            [0,1,0,1],
+            [0,1,1,0],
+            [0,1,1,1],
+            [1,0,0,0],
+            [1,0,0,1],
+            [1,0,1,0],
+            [1,0,1,1],
+            [1,1,0,0],
+            [1,1,0,1],
+            [1,1,1,0],
+            [1,1,1,1], ],
+
 "OPMODE": [ # used in MOVEP, and perhaps other ops
             [1,0,0],
             [1,0,1],
@@ -79,24 +97,6 @@ COMMON_PATTERNS = {#{{{
 #**************************
 
 PATTERNS = {#{{{
-
- "COND" : [
-            [0,0,0,0,],
-            [0,0,0,1,],
-            [0,0,1,0,],
-            [0,0,1,1,],
-            [0,1,0,0,],
-            [0,1,0,1,],
-            [0,1,1,0,],
-            [0,1,1,1,],
-            [1,0,0,0,],
-            [1,0,0,1,],
-            [1,0,1,0,],
-            [1,0,1,1,],
-            [1,1,0,0,],
-            [1,1,0,1,],
-            [1,1,1,0,],
-            [1,1,1,1,], ],
 
 # ORI {{{
 
@@ -730,6 +730,319 @@ PATTERNS = {#{{{
             [0,1,1],
             [1,1,1],
           ],#}}}
+# LINK_WORD {{{
+
+"LINK_WORD_REGISTER" : COMMON_PATTERNS["Xn"],
+
+#}}}
+# LINK_LONG {{{
+
+"LINK_LONG_REGISTER" : COMMON_PATTERNS["Xn"],
+
+#}}}
+# NBCD {{{
+
+"NBCD_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"NBCD_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"NBCD_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# SWAP {{{
+
+"SWAP_REGISTER" : COMMON_PATTERNS["Xn"],
+
+#}}}
+# BKPT {{{
+
+"BKPT_VECTOR" : COMMON_PATTERNS["Xn"], # vectors are 0..7 just like register numbers
+
+#}}}
+# PEA {{{
+
+"PEA_EA" : [
+            [0,1,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"PEA_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"PEA_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
+# TAS {{{
+
+"TAS_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"TAS_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"TAS_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# TST {{{
+
+"TST_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"TST_EA" : [
+            [0,0,0,"Xn"],
+            [0,0,1,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"TST_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"TST_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# MULU_WORD {{{
+
+"MULU_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+
+"MULU_WORD_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MULU_WORD_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MULU_WORD_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# MUL_LONG {{{
+
+"MUL_LONG_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MUL_LONG_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MUL_LONG_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# MULS_WORD {{{
+
+"MULS_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+
+"MULS_WORD_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MULS_WORD_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MULS_WORD_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# DIVS_WORD {{{
+
+"DIVS_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+
+"DIVS_WORD_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"DIVS_WORD_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"DIVS_WORD_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# DIVU_WORD {{{
+
+"DIVU_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+
+"DIVU_WORD_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"DIVU_WORD_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"DIVU_WORD_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# DIV_LONG {{{
+
+"DIV_LONG_EA" : [
+            [0,0,0,"Xn"],
+            [0,1,0,"Xn"],
+            [0,1,1,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"DIV_LONG_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"DIV_LONG_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# TRAP {{{
+
+"TRAP_VECTOR" : COMMON_PATTERNS["vector4"], 
+
+#}}}
+# UNLK {{{
+
+"UNLK_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+
+#}}}
+# MOVE_USP {{{
+
+"MOVE_USP_dr" : COMMON_PATTERNS["b"],
+"MOVE_USP_REGISTER" : COMMON_PATTERNS["Xn"],
+
+#}}}
+# MOVEC {{{
+
+"MOVEC_dr" : COMMON_PATTERNS[ "b" ],
+
+#}}}
+# JSR {{{
+
+"JSR_EA" : [
+            [0,1,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"JSR_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"JSR_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
+# JMP {{{
+
+"JMP_EA" : [
+            [0,1,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"JMP_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"JMP_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
+# MOVEM {{{
+
+"MOVEM_dr" : COMMON_PATTERNS[ "b" ],
+"MOVEM_S"  : COMMON_PATTERNS[ "b" ],
+
+"MOVEM_EA" : [
+            [0,1,0,"Xn"],
+            [1,0,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"MOVEM_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"MOVEM_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# LEA {{{
+
+"LEA_REGISTER"  : COMMON_PATTERNS[ "Xn" ],
+
+"LEA_EA" : [
+            [0,1,0,"Xn"],
+            [1,0,1,"Xn"],
+            [1,1,0,"Xn"],
+            [1,1,1,"LEA_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"LEA_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
 
 }#}}}
 
@@ -737,7 +1050,7 @@ PATTERNS = {#{{{
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
@@ -768,30 +1081,32 @@ OPCODES = {
     "MOVE"          : [0,0,"MOVE_S","MOVE_DESTINATION","MOVE_SOURCE"],#}}}
     "MOVE_from_SR"  : [0,1,0,0,0,0,0,0,1,1,"MOVE_from_SR_EA"],#}}}
     "MOVE_from_CCR" : [0,1,0,0,0,0,1,0,1,1,"MOVE_from_CCR_EA"],#}}}
-    "NEGX"          : [0,1,0,0,0,0,0,0,"NEGX_SIZE1","NEGX_EA"],#}}}
-    "CLR"           : [0,1,0,0,0,0,1,0,"CLR_SIZE","CLR_EA"],#}}}
+    "NEGX"          : [0,1,0,0,0,0,0,0,"NEGX_S1","NEGX_EA"],#}}}
+    "CLR"           : [0,1,0,0,0,0,1,0,"CLR_S","CLR_EA"],#}}}
     "MOVE_to_CCR"   : [0,1,0,0,0,1,0,0,1,1,"MOVE_to_CCR_EA"],#}}}
-    "NEG"           : [0,1,0,0,0,1,0,0,"NEG_SIZE","NEG_EA"],#}}}
-    "NOT"           : [0,1,0,0,0,1,1,0,"NOT_SIZE","NOT_EA"],#}}}
+    "NEG"           : [0,1,0,0,0,1,0,0,"NEG_S","NEG_EA"],#}}}
+    "NOT"           : [0,1,0,0,0,1,1,0,"NOT_S","NOT_EA"],#}}}
     "MOVE_to_SR"    : [0,1,0,0,0,1,1,0,1,1,"MOVE_to_SR_EA"],#}}}
     "EXT/EXTB"      : [0,1,0,0,1,0,0,"EXT/EXTB_OPMODE",0,0,0,"EXT/EXTB_REGISTER"],#}}}
     "LINK_LONG"     : [0,1,0,0,1,0,0,0,0,0,0,0,1,"LINK_REGISTER"],
-    "LINK_WORD"     : [0,1,0,0,1,1,1,0,0,1,0,1,0,"LINK_REGISTER"],
-    "NBCD"          : [0,1,0,0,1,0,0,0,0,0,0,"NBCD_EA"],
-    "SWAP"          : [0,1,0,0,1,0,0,0,0,1,0,0,0,"SWAP_REGISTER"],
-    "BKPT"          : [0,1,0,0,1,0,0,0,0,1,0,0,1,"BKPT_VECTOR"],
-    "PEA"           : [0,1,0,0,1,0,0,0,0,1,"PEA_EA"],
+    "LINK_WORD"     : [0,1,0,0,1,1,1,0,0,1,0,1,0,"LINK_REGISTER"],#}}}
+    "NBCD"          : [0,1,0,0,1,0,0,0,0,0,"NBCD_EA"],#}}}
+    "SWAP"          : [0,1,0,0,1,0,0,0,0,1,0,0,0,"SWAP_REGISTER"],#}}}
+    "BKPT"          : [0,1,0,0,1,0,0,0,0,1,0,0,1,"BKPT_VECTOR"],#}}}
+    "PEA"           : [0,1,0,0,1,0,0,0,0,1,"PEA_EA"],#}}}
     "BGND"          : [0,1,0,0,1,0,1,0,1,1,1,1,1,0,1,0],
-    "ILLEGAL"       : [0,1,0,0,1,0,1,0,1,1,1,1,1,1,0,0],
-    "TAS"           : [0,1,0,0,1,0,1,0,1,1,"TAS_EA"],
-    "TST"           : [0,1,0,0,1,0,1,0,"TST_SIZE","TST_EA"],
-    "MULU"          : [0,1,0,0,1,1,0,0,0,0,"MULU_EA"],
-    "MULS"          : [0,1,0,0,1,1,0,0,0,0,"MULS_EA"],
-    "DIVU/DIVUL"    : [0,1,0,0,1,1,0,0,0,0,"DIVU/DIVUL_EA"],
-    "DIVS/DIVSL"    : [0,1,0,0,1,1,0,0,0,1,"DIVS/DIVSL_EA"],
-    "TRAP"          : [0,1,0,0,1,1,1,0,0,1,0,0,"TRAP_VECTOR"],
-    "UNLK"          : [0,1,0,0,1,1,1,0,0,1,0,1,1,"UNLK_REGISTER"],
-    "MOVE_USP"      : [0,1,0,0,1,1,1,0,0,1,1,0,"MOVE_USP_dr","MOVE_USP_REGISTER"],
+    "ILLEGAL"       : [0,1,0,0,1,0,1,0,1,1,1,1,1,1,0,0],#}}}
+    "TAS"           : [0,1,0,0,1,0,1,0,1,1,"TAS_EA"],#}}}
+    "TST"           : [0,1,0,0,1,0,1,0,"TST_S","TST_EA"],#}}}
+    "MULU_WORD"     : [1,1,0,0,"MULU_WORD_REGISTER",0,1,1,"MULU_WORD_EA"],
+    "MUL_LONG"      : [0,1,0,0,1,1,0,0,0,0,"MUL_LONG_EA"],#}}} this matches MULS.long and MULU.long
+    "MULS_WORD"     : [1,1,0,0,"MULS_WORD_REGISTER",1,1,1,"MULS_WORD_EA"],#}}}#}}}
+    "DIVS_WORD"     : [1,0,0,0,"DIVS_WORD_REGISTER",1,1,1,"DIVS_WORD_EA"],
+    "DIVU_WORD"     : [1,0,0,0,"DIVU_WORD_REGISTER",0,1,1,"DIVU_WORD_EA"],
+    "DIV_LONG"      : [0,1,0,0,1,1,0,0,0,1,"DIV_LONG_EA"],#}}}
+    "TRAP"          : [0,1,0,0,1,1,1,0,0,1,0,0,"TRAP_VECTOR"],#}}}
+    "UNLK"          : [0,1,0,0,1,1,1,0,0,1,0,1,1,"UNLK_REGISTER"],#}}}
+    "MOVE_USP"      : [0,1,0,0,1,1,1,0,0,1,1,0,"MOVE_USP_dr","MOVE_USP_REGISTER"],#}}}
     "RESET"         : [0,1,0,0,1,1,1,0,0,1,1,1,0,0,0,0],
     "NOP"           : [0,1,0,0,1,1,1,0,0,1,1,1,0,0,0,1],
     "STOP"          : [0,1,0,0,1,1,1,0,0,1,1,1,0,0,1,0],
@@ -799,15 +1114,15 @@ OPCODES = {
     "RTD"           : [0,1,0,0,1,1,1,0,0,1,1,1,0,1,0,0],
     "RTS"           : [0,1,0,0,1,1,1,0,0,1,1,1,0,1,0,1],
     "TRAPV"         : [0,1,0,0,1,1,1,0,0,1,1,1,0,1,1,0],
-    "RTR"           : [0,1,0,0,1,1,1,0,0,1,1,1,0,1,1,1],
-    "MOVEC"         : [0,1,0,0,1,1,1,0,0,1,1,1,1,0,1,"MOVEC_dr"],
+    "RTR"           : [0,1,0,0,1,1,1,0,0,1,1,1,0,1,1,1],#}}}
+    "MOVEC"         : [0,1,0,0,1,1,1,0,0,1,1,1,1,0,1,"MOVEC_dr"],#}}}
     "JSR"           : [0,1,0,0,1,1,1,0,1,0,"JSR_EA"],
-    "JMP"           : [0,1,0,0,1,1,1,0,1,1,"JMP_EA"],
-    "MOVEM"         : [0,1,0,0,1,"MOVEM_dr",0,0,1,"MOVEM_SIZE","MOVEM_EA"],
-    "LEA"           : [0,1,0,0,"LEA_REGISTER",1,1,1,"LEA_EA"],
-    "CHK"           : [0,1,0,0,"CHK_REGISTER","CHK_SIZE",0,"CHK_EA"],
-    "ADDQ"          : [0,1,0,1,"ADDQ_DATA",0,"ADDQ_SIZE","ADDQ_EA"],
-    "SUBQ"          : [0,1,0,1,"SUBQ_DATA",1,"SUBQ_SIZE","SUBQ_EA"],
+    "JMP"           : [0,1,0,0,1,1,1,0,1,1,"JMP_EA"],#}}}
+    "MOVEM"         : [0,1,0,0,1,"MOVEM_dr",0,0,1,"MOVEM_S","MOVEM_EA"],#}}}
+    "LEA"           : [0,1,0,0,"LEA_REGISTER",1,1,1,"LEA_EA"],#}}}
+    "CHK"           : [0,1,0,0,"CHK_REGISTER","CHK_S",0,"CHK_EA"],
+    "ADDQ"          : [0,1,0,1,"ADDQ_DATA",0,"ADDQ_S","ADDQ_EA"],
+    "SUBQ"          : [0,1,0,1,"SUBQ_DATA",1,"SUBQ_S","SUBQ_EA"],
     "DBcc"          : [0,1,0,1,"DBcc_CONDITION",1,1,0,0,1,"DBcc_REGISTER"],
     "TRAPcc"        : [0,1,0,1,"TRAPcc_CONDITION",1,1,1,1,1,"TRAPcc_OPCODE"],
     "Scc"           : [0,1,0,1,"Scc_CONDITION",1,1,"Scc_EA"],
@@ -815,25 +1130,21 @@ OPCODES = {
     "BSR"           : [0,1,1,0,0,0,0,1,"BRA_8BIT_DISPLACEMENT"],
     "Bcc"           : [0,1,1,0,"Bcc_CONDITION","BRA_8BIT_DISPLACEMENT"],
     "MOVEQ"         : [0,1,1,1,"MOVEQ_REGISTER",0,"MOVEQ_DATA"],
-    "DIVU/DIVUL"    : [1,0,0,0,"DIVU/DIVUL_REGISTER",0,1,1,"DIVU/DIVUL_EA"],
     "SBCD"          : [1,0,0,0,"SBCD_REGISTER_DyAy",1,0,0,0,0,"SBCD_RM","SBCD_REGISTER_DxAx"],
     "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],
     "UNPK"          : [1,0,0,0,"UNPK_REGISTER_DyAy",1,1,0,0,0,"UNPK_RM","UNPK_REGISTER_DxAx"],
-    "DIVS/DIVSL"    : [1,0,0,0,"DIVS/DIVSL_REGISTER",1,1,1,"DIVS/DIVSL_EA"],
     "OR"            : [1,0,0,0,"OR_REGISTER","OR_OPMODE","OR_EA"],
-    "SUBX"          : [1,0,0,1,"SUBX_REGISTER_DyAy",1,"SUBX_SIZE",0,0,"SUBX_RM","SUBX_REGISTER_DxAx"],
+    "SUBX"          : [1,0,0,1,"SUBX_REGISTER_DyAy",1,"SUBX_S",0,0,"SUBX_RM","SUBX_REGISTER_DxAx"],
     "SUB"           : [1,0,0,1,"SUB_REGISTER","SUB_OPMODE","SUB_EA"],
     "SUBA"          : [1,0,0,1,"SUBA_REGISTER", "SUBA_OPMODE","SUBA_EA"],
-    "CMPM"          : [1,0,1,1,"CMPM_REGISTER_Ax",1,"CMPM_SIZE",0,0,1,"CMPM_REGISTER_Ay"],
+    "CMPM"          : [1,0,1,1,"CMPM_REGISTER_Ax",1,"CMPM_S",0,0,1,"CMPM_REGISTER_Ay"],
     "CMP"           : [1,0,1,1,"CMP_REGISTER","CMP_OPMODE","CMP_EA"],
     "CMPA"          : [1,0,1,1,"CMPA_REGISTER","CMPA_OPMODE","CMPA_EA"],
     "EOR"           : [1,0,1,1,"EOR_REGISTER","EOR_OPMODE","EOR_EA"],
-    "MULU"          : [1,1,0,0,"MULU_REGISTER",0,1,1,"MULU_EA"],
     "ABCD"          : [1,1,0,0,"ABCD_REGISTER_Rx",1,0,0,0,0,"ABCD_RM","ABCD_REGISTER_Ry"],
-    "MULS"          : [1,1,0,0,"MULS_REGISTER",1,1,1,"MULS_EA"],
     "EXG"           : [1,1,0,0,"EXG_REGISTER_Rx",1,"EXG_OPMODE","EXG_REGISTER_Ry"],
     "AND"           : [1,1,0,0,"AND_REGISTER","AND_OPMODE","AND_EA"],
-    "ADDX"          : [1,1,0,1,"ADDX_REGISTER_Rx",1,"ADDX_SIZE",0,0,"ADDX_RM","ADDX_REGISTER_Ry"],
+    "ADDX"          : [1,1,0,1,"ADDX_REGISTER_Rx",1,"ADDX_S",0,0,"ADDX_RM","ADDX_REGISTER_Ry"],
     "ADDA"          : [1,1,0,1,"ADDA_REGISTER","ADDA_OPMODE","ADDA_EA"],
     "ADD"           : [1,1,0,1,"ADD_REGISTER","ADD_OPMODE","ADD_EA"],
     "ASL/ASR"       : [1,1,1,0,0,0,0,"ASL/ASR_dr",1,1,"ASL/ASR_EA"],
@@ -848,10 +1159,10 @@ OPCODES = {
     "BFFFO"         : [1,1,1,0,1,1,0,1,1,1,"BFFFO_EA"],
     "BFSET"         : [1,1,1,0,1,1,1,0,1,1,"BFSET_EA"],
     "BFINS"         : [1,1,1,0,1,1,1,1,1,1,"BFINS_EA"],
-    "ASL/ASR"       : [1,1,1,0,"ASL/ASR_COUNT/REGISTER","ASL/ASR_dr","ASL/ASR_SIZE","ASL/ASR_i/r",0,0,"ASL/ASR_REGISTER"],
-    "LSL/LSR"       : [1,1,1,0,"LSL/LSR_COUNT/REGISTER","LSL/LSR_dr","LSL/LSR_SIZE","LSL/LSR_i/r",0,1,"LSL/LSR_REGISTER"],
-    "ROXL/ROXR"     : [1,1,1,0,"ROXL/ROXR_COUNT/REGISTER","ROXL/ROXR_dr","ROXL/ROXR_SIZE","ROXL/ROXR_i/r",1,0,"ROXL/ROXR_REGISTER"],
-    "ROL/ROR"       : [1,1,1,0,"ROL/ROR_COUNT/REGISTER","ROL/ROR_dr","ROL/ROR_SIZE","ROL/ROR_i/r",1,1,"ROL/ROR_REGISTER"],
+    "ASL/ASR"       : [1,1,1,0,"ASL/ASR_COUNT/REGISTER","ASL/ASR_dr","ASL/ASR_S","ASL/ASR_i/r",0,0,"ASL/ASR_REGISTER"],
+    "LSL/LSR"       : [1,1,1,0,"LSL/LSR_COUNT/REGISTER","LSL/LSR_dr","LSL/LSR_S","LSL/LSR_i/r",0,1,"LSL/LSR_REGISTER"],
+    "ROXL/ROXR"     : [1,1,1,0,"ROXL/ROXR_COUNT/REGISTER","ROXL/ROXR_dr","ROXL/ROXR_S","ROXL/ROXR_i/r",1,0,"ROXL/ROXR_REGISTER"],
+    "ROL/ROR"       : [1,1,1,0,"ROL/ROR_COUNT/REGISTER","ROL/ROR_dr","ROL/ROR_S","ROL/ROR_i/r",1,1,"ROL/ROR_REGISTER"],
 }
 # Note 1.0: The bits for the first word of CMP2 and CHK2 are the same.
 #           We will figure out which one it actually is during the 
@@ -925,11 +1236,10 @@ def gen( _bits, _name ):
 
 for op in OPCODES:
     if op != None:
-        #print( "Generating bit patterns for %s... " % op )
         gen( OPCODES[op], op )
 
 for i in range(len(INSTRUCTIONS)):
     if INSTRUCTIONS[i] != None:
-        print( "{:016b} -> {:s}".format( i, INSTRUCTIONS[i] ) )
+        print( "{:016b} = 0x{:04X} = {:5d} -> {:s}".format( i, i, i, INSTRUCTIONS[i] ) )
 
 # vim: set foldmethod=marker:
