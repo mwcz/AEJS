@@ -52,8 +52,7 @@ COMMON_PATTERNS = {#{{{
             [0,1], 
             [1,0], ],
 
-   # A register number, 0 through 7
-   "Xn" : [ # register number
+"vector3" : [
             [0,0,0],
             [0,0,1],
             [0,1,0],
@@ -106,12 +105,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "ORI_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"ORI_ABS_REG" ],
           ],
 
@@ -128,12 +127,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "ANDI_EA" : [ # condition
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"ANDI_ABS_REG" ], ],
 
 # The register number when the addressing mode is absolute (Mode 111)
@@ -149,12 +148,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "SUBI_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"SUBI_ABS_REG" ],
           ],
 
@@ -164,14 +163,14 @@ PATTERNS = {#{{{
             [0,0,1],],#}}}
 # RTM {{{
 "RTM_b" : COMMON_PATTERNS["b"],
-"RTM_Xn" : COMMON_PATTERNS["Xn"],
+"RTM_vector3" : COMMON_PATTERNS["vector3"],
           #}}}
 # CALLM {{{
 
 "CALLM_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"CALLM_ABS_REG" ],
           ],
 
@@ -190,12 +189,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "ADDI_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"ADDI_ABS_REG" ],
           ],
 
@@ -212,9 +211,9 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "CMP2/CHK2_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"CMP2/CHK2_ABS_REG" ],
           ],
 
@@ -233,12 +232,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "EORI_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"EORI_ABS_REG" ],
           ],
 
@@ -255,12 +254,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "CMPI_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"CMPI_ABS_REG" ],
           ],
 
@@ -273,15 +272,15 @@ PATTERNS = {#{{{
           ],#}}}
 # BTST_DYNAMIC {{{
 
-"BTST_Xn" : COMMON_PATTERNS[ "Xn" ],
+"BTST_vector3" : COMMON_PATTERNS[ "vector3" ],
 
 "BTST_DYNAMIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BTST_DYNAMIC_ABS_REG" ],
           ],
 
@@ -296,12 +295,12 @@ PATTERNS = {#{{{
 # BTST_STATIC {{{
 
 "BTST_STATIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BTST_STATIC_ABS_REG" ],
           ],
 
@@ -315,15 +314,15 @@ PATTERNS = {#{{{
           ],#}}}
 # BCHG_DYNAMIC {{{
 
-"BCHG_Xn" : COMMON_PATTERNS[ "Xn" ],
+"BCHG_vector3" : COMMON_PATTERNS[ "vector3" ],
 
 "BCHG_DYNAMIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BCHG_DYNAMIC_ABS_REG" ],
           ],
 
@@ -335,12 +334,12 @@ PATTERNS = {#{{{
 # BCHG_STATIC {{{
 
 "BCHG_STATIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BCHG_STATIC_ABS_REG" ],
           ],
 
@@ -351,15 +350,15 @@ PATTERNS = {#{{{
           ],#}}}
 # BCLR_DYNAMIC {{{
 
-"BCLR_Xn" : COMMON_PATTERNS[ "Xn" ],
+"BCLR_vector3" : COMMON_PATTERNS[ "vector3" ],
 
 "BCLR_DYNAMIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BCLR_DYNAMIC_ABS_REG" ],
           ],
 
@@ -371,12 +370,12 @@ PATTERNS = {#{{{
 # BCLR_STATIC {{{
 
 "BCLR_STATIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BCLR_STATIC_ABS_REG" ],
           ],
 
@@ -393,12 +392,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "EORI_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"EORI_ABS_REG" ],
           ],
 
@@ -409,15 +408,15 @@ PATTERNS = {#{{{
           ],#}}}
 # BSET_DYNAMIC {{{
 
-"BSET_Xn" : COMMON_PATTERNS[ "Xn" ],
+"BSET_vector3" : COMMON_PATTERNS[ "vector3" ],
 
 "BSET_DYNAMIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BSET_DYNAMIC_ABS_REG" ],
           ],
 
@@ -429,12 +428,12 @@ PATTERNS = {#{{{
 # BSET_STATIC {{{
 
 "BSET_STATIC_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"BSET_STATIC_ABS_REG" ],
           ],
 
@@ -451,11 +450,11 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "MOVES_EA" : [
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVES_ABS_REG" ],
           ],
 
@@ -472,11 +471,11 @@ PATTERNS = {#{{{
             [1,1], ],
 
 "CAS_EA" : [
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"CAS_ABS_REG" ],
           ],
 
@@ -492,7 +491,7 @@ PATTERNS = {#{{{
             [1,1], ],#}}}
 # MOVEP {{{
 
-"MOVEP_Xn" : COMMON_PATTERNS["Xn"],
+"MOVEP_vector3" : COMMON_PATTERNS["vector3"],
 "MOVEP_OPMODE" : COMMON_PATTERNS["OPMODE"],
 
         #}}}
@@ -502,16 +501,16 @@ PATTERNS = {#{{{
             [1,0],
             [1,1], ],
 
-"MOVEA_DN" : COMMON_PATTERNS["Xn"],
+"MOVEA_DN" : COMMON_PATTERNS["vector3"],
 
 "MOVEA_SOURCE" : [
-            [0,0,0,"Xn"],
-            [0,0,1,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVEA_ABS_REG" ],],
 
 "MOVEA_ABS_REG" : [
@@ -530,12 +529,12 @@ PATTERNS = {#{{{
             [1,1], ],
 
 "MOVE_DESTINATION" : [
-            ["Xn",0,0,0],
-            ["Xn",0,1,0],
-            ["Xn",0,1,1],
-            ["Xn",1,0,0],
-            ["Xn",1,0,1],
-            ["Xn",1,1,0],
+            ["vector3",0,0,0],
+            ["vector3",0,1,0],
+            ["vector3",0,1,1],
+            ["vector3",1,0,0],
+            ["vector3",1,0,1],
+            ["vector3",1,1,0],
             ["MOVE_DESTINATION_ABS_REG",1,1,1],],
 
 "MOVE_DESTINATION_ABS_REG" : [
@@ -543,13 +542,13 @@ PATTERNS = {#{{{
             [0,0,1],],
 
 "MOVE_SOURCE" : [
-            [0,0,0,"Xn"],
-            [0,0,1,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVE_ABS_REG" ],],
 
 "MOVE_SOURCE_ABS_REG" : [
@@ -563,12 +562,12 @@ PATTERNS = {#{{{
 # MOVE_from_SR {{{
 
 "MOVE_from_SR_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVE_from_SR_ABS_REG" ],
           ],
 
@@ -580,12 +579,12 @@ PATTERNS = {#{{{
 # MOVE_from_CCR {{{
 
 "MOVE_from_CCR_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVE_from_CCR_ABS_REG" ],
           ],
 
@@ -602,12 +601,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "NEGX_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"NEGX_ABS_REG" ],
           ],
 
@@ -624,12 +623,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "CLR_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"CLR_ABS_REG" ],
           ],
 
@@ -641,12 +640,12 @@ PATTERNS = {#{{{
 # MOVE_to_CCR {{{
 
 "MOVE_to_CCR_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVE_to_CCR_ABS_REG" ],
           ],
 
@@ -666,12 +665,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "NEG_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"NEG_ABS_REG" ],
           ],
 
@@ -688,12 +687,12 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "NOT_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"NOT_ABS_REG" ],
           ],
 
@@ -705,12 +704,12 @@ PATTERNS = {#{{{
 # MOVE_to_SR {{{
 
 "MOVE_to_SR_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVE_to_SR_ABS_REG" ],
           ],
 
@@ -724,7 +723,7 @@ PATTERNS = {#{{{
           ],#}}}
 # EXT/EXTB {{{
 
-"EXT/EXTB_REGISTER" : COMMON_PATTERNS["Xn"],
+"EXT/EXTB_REGISTER" : COMMON_PATTERNS["vector3"],
 "EXT/EXTB_OPMODE" : [
             [0,1,0],
             [0,1,1],
@@ -732,23 +731,23 @@ PATTERNS = {#{{{
           ],#}}}
 # LINK_WORD {{{
 
-"LINK_WORD_REGISTER" : COMMON_PATTERNS["Xn"],
+"LINK_WORD_REGISTER" : COMMON_PATTERNS["vector3"],
 
 #}}}
 # LINK_LONG {{{
 
-"LINK_LONG_REGISTER" : COMMON_PATTERNS["Xn"],
+"LINK_LONG_REGISTER" : COMMON_PATTERNS["vector3"],
 
 #}}}
 # NBCD {{{
 
 "NBCD_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"NBCD_ABS_REG" ],
           ],
 
@@ -759,20 +758,20 @@ PATTERNS = {#{{{
           ],#}}}
 # SWAP {{{
 
-"SWAP_REGISTER" : COMMON_PATTERNS["Xn"],
+"SWAP_REGISTER" : COMMON_PATTERNS["vector3"],
 
 #}}}
 # BKPT {{{
 
-"BKPT_VECTOR" : COMMON_PATTERNS["Xn"], # vectors are 0..7 just like register numbers
+"BKPT_VECTOR" : COMMON_PATTERNS["vector3"], # vectors are 0..7 just like register numbers
 
 #}}}
 # PEA {{{
 
 "PEA_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"PEA_ABS_REG" ],
           ],
 
@@ -786,12 +785,12 @@ PATTERNS = {#{{{
 # TAS {{{
 
 "TAS_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"TAS_ABS_REG" ],
           ],
 
@@ -808,13 +807,13 @@ PATTERNS = {#{{{
             [1,0], ],
 
 "TST_EA" : [
-            [0,0,0,"Xn"],
-            [0,0,1,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"TST_ABS_REG" ],
           ],
 
@@ -828,15 +827,15 @@ PATTERNS = {#{{{
           ],#}}}
 # MULU_WORD {{{
 
-"MULU_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+"MULU_WORD_REGISTER" : COMMON_PATTERNS[ "vector3" ],
 
 "MULU_WORD_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MULU_WORD_ABS_REG" ],
           ],
 
@@ -851,12 +850,12 @@ PATTERNS = {#{{{
 # MUL_LONG {{{
 
 "MUL_LONG_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MUL_LONG_ABS_REG" ],
           ],
 
@@ -870,15 +869,15 @@ PATTERNS = {#{{{
           ],#}}}
 # MULS_WORD {{{
 
-"MULS_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+"MULS_WORD_REGISTER" : COMMON_PATTERNS[ "vector3" ],
 
 "MULS_WORD_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MULS_WORD_ABS_REG" ],
           ],
 
@@ -892,15 +891,15 @@ PATTERNS = {#{{{
           ],#}}}
 # DIVS_WORD {{{
 
-"DIVS_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+"DIVS_WORD_REGISTER" : COMMON_PATTERNS[ "vector3" ],
 
 "DIVS_WORD_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"DIVS_WORD_ABS_REG" ],
           ],
 
@@ -914,15 +913,15 @@ PATTERNS = {#{{{
           ],#}}}
 # DIVU_WORD {{{
 
-"DIVU_WORD_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+"DIVU_WORD_REGISTER" : COMMON_PATTERNS[ "vector3" ],
 
 "DIVU_WORD_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"DIVU_WORD_ABS_REG" ],
           ],
 
@@ -937,12 +936,12 @@ PATTERNS = {#{{{
 # DIV_LONG {{{
 
 "DIV_LONG_EA" : [
-            [0,0,0,"Xn"],
-            [0,1,0,"Xn"],
-            [0,1,1,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"DIV_LONG_ABS_REG" ],
           ],
 
@@ -961,13 +960,13 @@ PATTERNS = {#{{{
 #}}}
 # UNLK {{{
 
-"UNLK_REGISTER" : COMMON_PATTERNS[ "Xn" ],
+"UNLK_REGISTER" : COMMON_PATTERNS[ "vector3" ],
 
 #}}}
 # MOVE_USP {{{
 
 "MOVE_USP_dr" : COMMON_PATTERNS["b"],
-"MOVE_USP_REGISTER" : COMMON_PATTERNS["Xn"],
+"MOVE_USP_REGISTER" : COMMON_PATTERNS["vector3"],
 
 #}}}
 # MOVEC {{{
@@ -978,9 +977,9 @@ PATTERNS = {#{{{
 # JSR {{{
 
 "JSR_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"JSR_ABS_REG" ],
           ],
 
@@ -994,9 +993,9 @@ PATTERNS = {#{{{
 # JMP {{{
 
 "JMP_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"JMP_ABS_REG" ],
           ],
 
@@ -1013,10 +1012,10 @@ PATTERNS = {#{{{
 "MOVEM_S"  : COMMON_PATTERNS[ "b" ],
 
 "MOVEM_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"MOVEM_ABS_REG" ],
           ],
 
@@ -1027,12 +1026,12 @@ PATTERNS = {#{{{
           ],#}}}
 # LEA {{{
 
-"LEA_REGISTER"  : COMMON_PATTERNS[ "Xn" ],
+"LEA_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
 
 "LEA_EA" : [
-            [0,1,0,"Xn"],
-            [1,0,1,"Xn"],
-            [1,1,0,"Xn"],
+            [0,1,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
             [1,1,1,"LEA_ABS_REG" ],
           ],
 
@@ -1057,7 +1056,7 @@ OPCODES = {
     "ANDI to SR"    : [0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,0],
     "ANDI"          : [0,0,0,0,0,0,1,0,"ANDI_S","ANDI_EA"],
     "SUBI"          : [0,0,0,0,0,1,0,0,"SUBI_S","SUBI_EA"],
-    "RTM"           : [0,0,0,0,0,1,1,0,1,1,0,0,"RTM_b","RTM_Xn"],
+    "RTM"           : [0,0,0,0,0,1,1,0,1,1,0,0,"RTM_b","RTM_vector3"],
     "CALLM"         : [0,0,0,0,0,1,1,0,1,1,"CALLM_EA"],
     "ADDI"          : [0,0,0,0,0,1,1,0,"ADDI_S","ADDI_EA"],
     "CMP2/CHK2"     : [0,0,0,0,0,"CMP2/CHK2_S",0,1,1,"CMP2/CHK2_EA"], # See Note 1.0#}}}
@@ -1065,18 +1064,18 @@ OPCODES = {
     "EORI_to_SR"    : [0,0,0,0,1,0,1,0,0,1,1,1,1,1,0,0],#}}}
     "EORI"          : [0,0,0,0,1,0,1,0,"EORI_S","EORI_EA"],#}}}#}}}#}}}
     "CMPI"          : [0,0,0,0,1,1,0,0,"CMPI_S","CMPI_EA"],#}}}
-    "BTST_DYNAMIC"  : [0,0,0,0,"BTST_Xn",1,0,0,"BTST_DYNAMIC_EA"],
+    "BTST_DYNAMIC"  : [0,0,0,0,"BTST_vector3",1,0,0,"BTST_DYNAMIC_EA"],
     "BTST_STATIC"   : [0,0,0,0,1,0,0,0,0,0,"BTST_STATIC_EA"],#}}}
     "BCHG_STATIC"   : [0,0,0,0,1,0,0,0,0,1,"BCHG_STATIC_EA"],
-    "BCHG_DYNAMIC"  : [0,0,0,0,"BCHG_Xn",1,0,1,"BCHG__DYNAMIC_EA"],#}}}
+    "BCHG_DYNAMIC"  : [0,0,0,0,"BCHG_vector3",1,0,1,"BCHG__DYNAMIC_EA"],#}}}
     "BCLR"          : [0,0,0,0,1,0,0,0,1,0,"BCLR_EA"],
-    "BCLR"          : [0,0,0,0,"BCLR_Xn",1,1,0,"BCLR_EA"],#}}}
+    "BCLR"          : [0,0,0,0,"BCLR_vector3",1,1,0,"BCLR_EA"],#}}}
     "BSET_STATIC"   : [0,0,0,0,1,0,0,0,1,1,"BSET_STATIC_EA"],
-    "BSET_DYNAMIC"  : [0,0,0,0,"BSET_Xn",1,1,1,"BSET_DYNAMIC_EA"],#}}}
+    "BSET_DYNAMIC"  : [0,0,0,0,"BSET_vector3",1,1,1,"BSET_DYNAMIC_EA"],#}}}
     "MOVES"         : [0,0,0,0,1,1,1,0,"MOVES_S","MOVES_EA"],#}}}
     "CAS"           : [0,0,0,0,1,"CAS_S",0,1,1,"CAS_EA"],#}}}
     "CAS2"          : [0,0,0,0,1,"CAS2_S",0,1,1,1,1,1,1,0,0],#}}}
-    "MOVEP"         : [0,0,0,0,"MOVEP_Xn","MOVEP_OPMODE",0,0,1,"MOVEP_Xn"],#}}}
+    "MOVEP"         : [0,0,0,0,"MOVEP_vector3","MOVEP_OPMODE",0,0,1,"MOVEP_vector3"],#}}}
     "MOVEA"         : [0,0,"MOVEA_S","MOVEA_DN",0,0,1,"MOVEA_SOURCE"],#}}}
     "MOVE"          : [0,0,"MOVE_S","MOVE_DESTINATION","MOVE_SOURCE"],#}}}
     "MOVE_from_SR"  : [0,1,0,0,0,0,0,0,1,1,"MOVE_from_SR_EA"],#}}}
