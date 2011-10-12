@@ -1042,6 +1042,133 @@ PATTERNS = {#{{{
             [0,1,0],
             [0,1,1],
           ],#}}}
+# CHK {{{
+
+"CHK_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
+
+"CHK_S" : [
+            [1,1],
+            [1,0], ],
+
+
+"CHK_EA" : [
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"CHK_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CHK_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,1],
+            [1,0,0],
+          ],#}}}
+# ADDQ {{{
+
+"ADDQ_DATA"  : COMMON_PATTERNS[ "vector3" ],
+
+"ADDQ_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"ADDQ_EA" : [
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"ADDQ_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"ADDQ_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# SUBQ {{{
+
+"SUBQ_DATA"  : COMMON_PATTERNS[ "vector3" ],
+
+"SUBQ_S" : [
+            [0,0],
+            [0,1],
+            [1,0], ],
+
+"SUBQ_EA" : [
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"SUBQ_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"SUBQ_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# DBcc {{{
+
+"DBcc_CONDITION" : COMMON_PATTERNS[ "vector4" ],
+"DBcc_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
+
+#}}}
+# TRAPcc {{{
+
+"TRAPcc_CONDITION" : COMMON_PATTERNS[ "vector4" ],
+"TRAPcc_OPCODE" : [
+            [0,1,0],
+            [0,1,1],
+            [1,0,0], ],
+
+#}}}
+# Scc {{{
+
+"Scc_CONDITION" : COMMON_PATTERNS[ "vector4" ],
+
+"Scc_EA" : [
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"Scc_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"Scc_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# BRA {{{
+
+"BRA_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
+
+#}}}
+# BSR {{{
+
+"BSR_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
+
+#}}}
+# Bcc {{{
+
+"Bcc_CONDITION"  : COMMON_PATTERNS[ "vector4" ],
+"Bcc_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
+
+#}}}
 
 }#}}}
 
@@ -1049,7 +1176,7 @@ PATTERNS = {#{{{
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],
@@ -1119,15 +1246,15 @@ OPCODES = {
     "JMP"           : [0,1,0,0,1,1,1,0,1,1,"JMP_EA"],#}}}
     "MOVEM"         : [0,1,0,0,1,"MOVEM_dr",0,0,1,"MOVEM_S","MOVEM_EA"],#}}}
     "LEA"           : [0,1,0,0,"LEA_REGISTER",1,1,1,"LEA_EA"],#}}}
-    "CHK"           : [0,1,0,0,"CHK_REGISTER","CHK_S",0,"CHK_EA"],
-    "ADDQ"          : [0,1,0,1,"ADDQ_DATA",0,"ADDQ_S","ADDQ_EA"],
-    "SUBQ"          : [0,1,0,1,"SUBQ_DATA",1,"SUBQ_S","SUBQ_EA"],
-    "DBcc"          : [0,1,0,1,"DBcc_CONDITION",1,1,0,0,1,"DBcc_REGISTER"],
-    "TRAPcc"        : [0,1,0,1,"TRAPcc_CONDITION",1,1,1,1,1,"TRAPcc_OPCODE"],
-    "Scc"           : [0,1,0,1,"Scc_CONDITION",1,1,"Scc_EA"],
-    "BRA"           : [0,1,1,0,0,0,0,0,"BRA_8BIT_DISPLACEMENT"],
-    "BSR"           : [0,1,1,0,0,0,0,1,"BRA_8BIT_DISPLACEMENT"],
-    "Bcc"           : [0,1,1,0,"Bcc_CONDITION","BRA_8BIT_DISPLACEMENT"],
+    "CHK"           : [0,1,0,0,"CHK_REGISTER","CHK_S",0,"CHK_EA"],#}}}
+    "ADDQ"          : [0,1,0,1,"ADDQ_DATA",0,"ADDQ_S","ADDQ_EA"],#}}}
+    "SUBQ"          : [0,1,0,1,"SUBQ_DATA",1,"SUBQ_S","SUBQ_EA"],#}}}
+    "DBcc"          : [0,1,0,1,"DBcc_CONDITION",1,1,0,0,1,"DBcc_REGISTER"],#}}}
+    "TRAPcc"        : [0,1,0,1,"TRAPcc_CONDITION",1,1,1,1,1,"TRAPcc_OPCODE"],#}}}
+    "Scc"           : [0,1,0,1,"Scc_CONDITION",1,1,"Scc_EA"],#}}}
+    "BRA"           : [0,1,1,0,0,0,0,0,"BRA_8BIT_DISPLACEMENT"],#}}}
+    "BSR"           : [0,1,1,0,0,0,0,1,"BSR_8BIT_DISPLACEMENT"],#}}}
+    "Bcc"           : [0,1,1,0,"Bcc_CONDITION","Bcc_8BIT_DISPLACEMENT"],
     "MOVEQ"         : [0,1,1,1,"MOVEQ_REGISTER",0,"MOVEQ_DATA"],
     "SBCD"          : [1,0,0,0,"SBCD_REGISTER_DyAy",1,0,0,0,0,"SBCD_RM","SBCD_REGISTER_DxAx"],
     "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],
