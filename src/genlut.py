@@ -1153,20 +1153,15 @@ PATTERNS = {#{{{
             [0,0,0],
             [0,0,1],
           ],#}}}
-# BRA {{{
-
-"BRA_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
-
-#}}}
 # BSR {{{
 
 "BSR_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
 
 #}}}
-# Bcc {{{
+# BRA/BSR/Bcc {{{
 
-"Bcc_CONDITION"  : COMMON_PATTERNS[ "vector4" ],
-"Bcc_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
+"BRA/BSR/Bcc_CONDITION"  : COMMON_PATTERNS[ "vector4" ],
+"BRA/BSR/Bcc_8BIT_DISPLACEMENT" : [ ["vector4","vector4"], ], # = vector8 :)
 
 #}}}
 
@@ -1252,9 +1247,7 @@ OPCODES = {
     "DBcc"          : [0,1,0,1,"DBcc_CONDITION",1,1,0,0,1,"DBcc_REGISTER"],#}}}
     "TRAPcc"        : [0,1,0,1,"TRAPcc_CONDITION",1,1,1,1,1,"TRAPcc_OPCODE"],#}}}
     "Scc"           : [0,1,0,1,"Scc_CONDITION",1,1,"Scc_EA"],#}}}
-    "BRA"           : [0,1,1,0,0,0,0,0,"BRA_8BIT_DISPLACEMENT"],#}}}
-    "BSR"           : [0,1,1,0,0,0,0,1,"BSR_8BIT_DISPLACEMENT"],#}}}
-    "Bcc"           : [0,1,1,0,"Bcc_CONDITION","Bcc_8BIT_DISPLACEMENT"],
+    "BRA/BSR/Bcc"   : [0,1,1,0,"BRA/BSR/Bcc_CONDITION","BRA/BSR/Bcc_8BIT_DISPLACEMENT"],
     "MOVEQ"         : [0,1,1,1,"MOVEQ_REGISTER",0,"MOVEQ_DATA"],
     "SBCD"          : [1,0,0,0,"SBCD_REGISTER_DyAy",1,0,0,0,0,"SBCD_RM","SBCD_REGISTER_DxAx"],
     "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],
