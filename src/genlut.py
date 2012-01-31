@@ -1191,6 +1191,60 @@ PATTERNS = {#{{{
 "UNPK_REGISTER_DxAx" : [ [ "vector3" ] ],
 
 #}}}
+# OR {{{
+
+# This is one of the more complicated opcodes, since
+# there are two addressing mode tables.  Which one gets used 
+# depends on the opmode.
+
+"OR_REGISTER" : [ [ "vector3"] ],
+"OR_OPMODE_EA" : [ 
+                [0,0,0,"OR_EA_SRC"],
+                [0,0,1,"OR_EA_SRC"],
+                [0,1,0,"OR_EA_SRC"],
+
+                [1,0,0,"OR_EA_DEST"],
+                [1,0,1,"OR_EA_DEST"],
+                [1,1,0,"OR_EA_DEST"],
+            ],
+"OR_EA_SRC" : [
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"OR_ABS_REG_SRC" ],
+          ],
+
+"OR_EA_DEST" : [
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"OR_ABS_REG_DEST" ],
+          ],
+
+# If the location specified is a source operand, only data 
+# addressing modes can be used as listed in the following tables [page 256 of 68kpm]
+"OR_ABS_REG_SRC" : [ 
+
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+        ],
+
+# If the location specified is a destination operand, only memory 
+# alterable addressing modes can be used as listed in the following 
+# tables [page 257 of 68kpm]
+"OR_ABS_REG_DEST" : [
+            [0,0,0],
+            [0,0,1],
+        ],
+#}}}
 
 }#}}}
 
@@ -1198,7 +1252,7 @@ PATTERNS = {#{{{
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],#}}}
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],#}}}
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],#}}}
@@ -1279,7 +1333,7 @@ OPCODES = {
     "SBCD"          : [1,0,0,0,"SBCD_REGISTER_DyAy",1,0,0,0,0,"SBCD_RM","SBCD_REGISTER_DxAx"],#}}}
     "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],#}}}
     "UNPK"          : [1,0,0,0,"UNPK_REGISTER_DyAy",1,1,0,0,0,"UNPK_RM","UNPK_REGISTER_DxAx"],#}}}
-    "OR"            : [1,0,0,0,"OR_REGISTER","OR_OPMODE","OR_EA"],
+    "OR"            : [1,0,0,0,"OR_REGISTER","OR_OPMODE_EA"],#}}}
     "SUBX"          : [1,0,0,1,"SUBX_REGISTER_DyAy",1,"SUBX_S",0,0,"SUBX_RM","SUBX_REGISTER_DxAx"],
     "SUB"           : [1,0,0,1,"SUB_REGISTER","SUB_OPMODE","SUB_EA"],
     "SUBA"          : [1,0,0,1,"SUBA_REGISTER", "SUBA_OPMODE","SUBA_EA"],
