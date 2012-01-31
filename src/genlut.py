@@ -1177,6 +1177,20 @@ PATTERNS = {#{{{
 "SBCD_REGISTER_DxAx" : [ [ "vector3" ] ],
 
 #}}}
+# PACK {{{
+
+"PACK_REGISTER_DyAy" : [ [ "vector3"] ],
+"PACK_RM"            : [ [ "b" ] ],
+"PACK_REGISTER_DxAx" : [ [ "vector3" ] ],
+
+#}}}
+# UNPK {{{
+
+"UNPK_REGISTER_DyAy" : [ [ "vector3"] ],
+"UNPK_RM"            : [ [ "b" ] ],
+"UNPK_REGISTER_DxAx" : [ [ "vector3" ] ],
+
+#}}}
 
 }#}}}
 
@@ -1184,7 +1198,7 @@ PATTERNS = {#{{{
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],#}}}
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],#}}}
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],#}}}
@@ -1263,8 +1277,8 @@ OPCODES = {
     "BRA/BSR/Bcc"   : [0,1,1,0,"BRA/BSR/Bcc_CONDITION","BRA/BSR/Bcc_8BIT_DISPLACEMENT"],#}}}
     "MOVEQ"         : [0,1,1,1,"MOVEQ_REGISTER",0,"MOVEQ_DATA"],#}}}
     "SBCD"          : [1,0,0,0,"SBCD_REGISTER_DyAy",1,0,0,0,0,"SBCD_RM","SBCD_REGISTER_DxAx"],#}}}
-    "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],
-    "UNPK"          : [1,0,0,0,"UNPK_REGISTER_DyAy",1,1,0,0,0,"UNPK_RM","UNPK_REGISTER_DxAx"],
+    "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],#}}}
+    "UNPK"          : [1,0,0,0,"UNPK_REGISTER_DyAy",1,1,0,0,0,"UNPK_RM","UNPK_REGISTER_DxAx"],#}}}
     "OR"            : [1,0,0,0,"OR_REGISTER","OR_OPMODE","OR_EA"],
     "SUBX"          : [1,0,0,1,"SUBX_REGISTER_DyAy",1,"SUBX_S",0,0,"SUBX_RM","SUBX_REGISTER_DxAx"],
     "SUB"           : [1,0,0,1,"SUB_REGISTER","SUB_OPMODE","SUB_EA"],
