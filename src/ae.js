@@ -13,6 +13,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with AEJS.  If not, see <http://www.gnu.org/licenses/>.
 
+"use strict";
+
 /**
  * integer to binary
  * translates a number into a binary representation of that number
@@ -279,6 +281,7 @@ var MASK16B = 0xFFFF ; // 1111111111111111
 var stop_execution = false;
 
 var fetch16 = new Uint16Array( 1 );
+var fetch4;
 
 window.onload = function() {
 
