@@ -1245,6 +1245,189 @@ PATTERNS = {#{{{
             [0,0,1],
         ],
 #}}}
+# SUBX {{{
+
+"SUBX_REGISTER_DyAy" : [ [ "vector3"] ],
+"SUBX_S"             : [ [ "S" ] ],
+"SUBX_RM"            : [ [ "b" ] ],
+"SUBX_REGISTER_DxAx" : [ [ "vector3" ] ],
+
+#}}}
+# SUB {{{
+
+"SUB_REGISTER" : [ [ "vector3"] ],
+"SUB_OPMODE_EA" : [ 
+                [0,0,0,"SUB_EA_SRC"],
+                [0,0,1,"SUB_EA_SRC"],
+                [0,1,0,"SUB_EA_SRC"],
+
+                [1,0,0,"SUB_EA_DEST"],
+                [1,0,1,"SUB_EA_DEST"],
+                [1,1,0,"SUB_EA_DEST"],
+            ],
+"SUB_EA_SRC" : [
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"SUB_ABS_REG_SRC" ],
+          ],
+
+"SUB_EA_DEST" : [
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"SUB_ABS_REG_DEST" ],
+          ],
+
+"SUB_ABS_REG_SRC" : [ 
+
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+        ],
+
+"SUB_ABS_REG_DEST" : [
+            [0,0,0],
+            [0,0,1],
+        ],
+#}}}
+# SUBA {{{
+
+"SUBA_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
+
+"SUBA_OPMODE" : [
+            [0,1,1],
+            [1,1,1] ],
+
+"SUBA_EA" : [
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"SUBA_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"SUBA_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
+# CMPM {{{
+
+"CMPM_REGISTER_Ax" : [ [ "vector3"] ],
+"CMPM_S"           : [ [ "S" ] ],
+"CMPM_REGISTER_Ay" : [ [ "vector3" ] ],
+
+#}}}
+# CMP {{{
+
+"CMP_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
+
+"CMP_OPMODE" : [
+            [0,0,0],
+            [0,0,1],
+            [0,1,0] ],
+
+"CMP_EA" : [
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"CMP_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CMP_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
+# CMPA {{{
+
+"CMPA_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
+
+"CMPA_OPMODE" : [
+            [0,1,1],
+            [1,1,1] ],
+
+"CMPA_EA" : [
+            [0,0,0,"vector3"],
+            [0,0,1,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"CMPA_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"CMPA_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+            [1,0,0],
+            [0,1,0],
+            [0,1,1],
+          ],#}}}
+# EOR {{{
+
+"EOR_REGISTER"  : COMMON_PATTERNS[ "vector3" ],
+
+"EOR_OPMODE" : [
+            [1,0,0],
+            [1,0,1],
+            [1,1,0] ],
+
+"EOR_EA" : [
+            [0,0,0,"vector3"],
+            [0,1,0,"vector3"],
+            [0,1,1,"vector3"],
+            [1,0,0,"vector3"],
+            [1,0,1,"vector3"],
+            [1,1,0,"vector3"],
+            [1,1,1,"EOR_ABS_REG" ],
+          ],
+
+# The register number when the addressing mode is absolute (Mode 111)
+"EOR_ABS_REG" : [
+            [0,0,0],
+            [0,0,1],
+          ],#}}}
+# ABCD {{{
+
+"ABCD_REGISTER_Rx" : [ [ "vector3"] ],
+"ABCD_RM"          : [ [ "b" ] ],
+"ABCD_REGISTER_Ry" : [ [ "vector3" ] ],
+
+#}}}
+# EXG {{{
+
+"EXG_REGISTER_Rx" : [ [ "vector3"] ],
+"EXG_OPMODE"      : [  [0,1,0,0,0],
+                       [0,1,0,0,1],
+                       [1,0,0,0,1], ],
+"EXG_REGISTER_Ry" : [ [ "vector3" ] ],
+
+#}}}
 
 }#}}}
 
@@ -1252,7 +1435,7 @@ PATTERNS = {#{{{
 PATTERNS.update( COMMON_PATTERNS )
 
 OPCODES = {
-    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
+    "ORI to CCR"    : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{#{{{
     "ORI to SR"     : [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0],#}}}
     "ORI"           : [0,0,0,0,0,0,0,0,"ORI_S","ORI_EA"],#}}}
     "ANDI to CCR"   : [0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0],#}}}
@@ -1334,15 +1517,15 @@ OPCODES = {
     "PACK"          : [1,0,0,0,"PACK_REGISTER_DyAy",1,0,1,0,0,"PACK_RM","PACK_REGISTER_DxAx"],#}}}
     "UNPK"          : [1,0,0,0,"UNPK_REGISTER_DyAy",1,1,0,0,0,"UNPK_RM","UNPK_REGISTER_DxAx"],#}}}
     "OR"            : [1,0,0,0,"OR_REGISTER","OR_OPMODE_EA"],#}}}
-    "SUBX"          : [1,0,0,1,"SUBX_REGISTER_DyAy",1,"SUBX_S",0,0,"SUBX_RM","SUBX_REGISTER_DxAx"],
-    "SUB"           : [1,0,0,1,"SUB_REGISTER","SUB_OPMODE","SUB_EA"],
-    "SUBA"          : [1,0,0,1,"SUBA_REGISTER", "SUBA_OPMODE","SUBA_EA"],
-    "CMPM"          : [1,0,1,1,"CMPM_REGISTER_Ax",1,"CMPM_S",0,0,1,"CMPM_REGISTER_Ay"],
-    "CMP"           : [1,0,1,1,"CMP_REGISTER","CMP_OPMODE","CMP_EA"],
-    "CMPA"          : [1,0,1,1,"CMPA_REGISTER","CMPA_OPMODE","CMPA_EA"],
-    "EOR"           : [1,0,1,1,"EOR_REGISTER","EOR_OPMODE","EOR_EA"],
-    "ABCD"          : [1,1,0,0,"ABCD_REGISTER_Rx",1,0,0,0,0,"ABCD_RM","ABCD_REGISTER_Ry"],
-    "EXG"           : [1,1,0,0,"EXG_REGISTER_Rx",1,"EXG_OPMODE","EXG_REGISTER_Ry"],
+    "SUBX"          : [1,0,0,1,"SUBX_REGISTER_DyAy",1,"SUBX_S",0,0,"SUBX_RM","SUBX_REGISTER_DxAx"],#}}}
+    "SUB"           : [1,0,0,1,"SUB_REGISTER","SUB_OPMODE_EA"],#}}}
+    "SUBA"          : [1,0,0,1,"SUBA_REGISTER", "SUBA_OPMODE","SUBA_EA"],#}}}
+    "CMPM"          : [1,0,1,1,"CMPM_REGISTER_Ax",1,"CMPM_S",0,0,1,"CMPM_REGISTER_Ay"],#}}}
+    "CMP"           : [1,0,1,1,"CMP_REGISTER","CMP_OPMODE","CMP_EA"],#}}}
+    "CMPA"          : [1,0,1,1,"CMPA_REGISTER","CMPA_OPMODE","CMPA_EA"],#}}}
+    "EOR"           : [1,0,1,1,"EOR_REGISTER","EOR_OPMODE","EOR_EA"],#}}}
+    "ABCD"          : [1,1,0,0,"ABCD_REGISTER_Rx",1,0,0,0,0,"ABCD_RM","ABCD_REGISTER_Ry"],#}}}
+    "EXG"           : [1,1,0,0,"EXG_REGISTER_Rx",1,"EXG_OPMODE","EXG_REGISTER_Ry"],#}}}
     "AND"           : [1,1,0,0,"AND_REGISTER","AND_OPMODE","AND_EA"],
     "ADDX"          : [1,1,0,1,"ADDX_REGISTER_Rx",1,"ADDX_S",0,0,"ADDX_RM","ADDX_REGISTER_Ry"],
     "ADDA"          : [1,1,0,1,"ADDA_REGISTER","ADDA_OPMODE","ADDA_EA"],
