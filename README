@@ -1,7 +1,3 @@
-AEJS is an Amiga emulator written in JavaScript.  
+AEJS is an Amiga emulator written in JavaScript.  It's a personal project started purely for academic interest.  It is not meant to be a practical tool for running Amiga programs.
 
-Wait, wording it like that makes it sound like it's finished.  It isn't.  It won't be for a long time.
-
-AEJS is just a hobby, and will never hold a candle to UAE.
-
-STATUS: As an interpreted emulator, AEJS needs a decoder.  I am about 75% done with creating a full lookup table for all 68k opcodes.  Once that is done, I can begin loading up sample programs and implementing the instructions, one at a time.
+For a functional Javascript Amiga Emulator ported from UAE, see https://github.com/naTmeg/ScriptedAmigaEmulator
